@@ -1,0 +1,17 @@
+#ycm file
+.ycm_extra_conf.py
+
+#build directory
+build/
+
+#todo file
+todo.txt
+
+#vcpkg cache file
+.cache
+
+#ctags file
+tags
+
+#temporary code file
+factory/
