@@ -7,24 +7,17 @@
 FileInfo::FileInfo(const fs::path& tempFilePath, std::shared_ptr<LanguageData> languageData)
 	:_filePath{tempFilePath},
 	_languageData{languageData},
-	_fileLanguage { _languageData->getLanguage(
-		[this]()->std::string
-		{
-			if(_filePath.has_extension())
+	_languageIdentifier{_languageData->getIdentifier(
+			[this]()->std::string
 			{
-				std::string ext{_filePath.extension()};
-				return ext.substr(1);
-			}
-			else
-				return "";
-		}())}
+				if(_filePath.has_extension())
+				{
+					std::string ext{_filePath.extension()};
+					return ext.substr(1);
+				}
+				else
+					return "";
+			}())},
+	_fileLanguage { _languageData->getLanguage(_languageIdentifier)}
 {
-}
-
-void FileInfo::printLineInfo()
-{
-	std::cout<<"\nblanks :\t"<<_lineInfo.blanks;
-	std::cout<<"\ncomments :\t"<<_lineInfo.comments;
-	std::cout<<"\ncode :\t\t"<<_lineInfo.code;
-	std::cout<<"\ntotal :\t\t"<<_lineInfo.total;
 }

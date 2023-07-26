@@ -2,27 +2,19 @@
 #define COUNTER_HPP
 
 #include "fileInfo.hpp"
+#include "countInfo.hpp"
+
 #include <memory>
 
 class Counter
 {
-public:
-	enum class State 
-	{
-		code,
-		lineComment,
-		multiLineComment,
-		justOutsideMultiLineComment,
-		quotes
-	};
 private:
 	FileInfo* _fileInfo;
-	Counter::State _state{State::code};
 	StringPair const* _currentMultiLineComment;
 public:
 	Counter(FileInfo* fileInfo);
-	void count();
-	void countLine(std::string line);
+	std::unique_ptr<CountInfo> count();
+	void countLine(std::string line, LineInfo* lineInfo);
 	std::string trimLeadingWhiteSpace(const std::string& line);
 	bool isEmpty(const std::string& line);
 	bool isSingleLineComment(const std::string& line);

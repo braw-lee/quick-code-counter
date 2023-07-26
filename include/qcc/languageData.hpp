@@ -37,7 +37,8 @@ private:
 		}
 	};
 public:
-	std::shared_ptr<Language> getLanguage(std::string&& extension);
+	std::string getIdentifier(std::string&& extension);
+	std::shared_ptr<Language> getLanguage(const std::string& extension);
 };
 
 #endif

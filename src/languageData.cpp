@@ -1,10 +1,21 @@
 #include "../include/qcc/languageData.hpp"
 #include <memory>
 
-std::shared_ptr<Language> LanguageData::getLanguage(std::string&& extension)
+std::string LanguageData::getIdentifier(std::string&& extension)
 {
-	if(extension == "" || _extensionMap.count(extension) == 0)
+	if(extension == "")
+		return "No extension";
+	auto it = _extensionMap.find(extension);
+	if(it == _extensionMap.end())
+		return "Unknown";
+	else
+		return it->second;
+}
+
+std::shared_ptr<Language> LanguageData::getLanguage(const std::string& identifier)
+{
+	if(identifier == "Unknown" || identifier == "No extension")
 		return nullptr;
-	auto ans = std::make_shared<Language> (_languageMap.at(_extensionMap.at(extension)));
+	auto ans = std::make_shared<Language> (_languageMap.at(identifier));
 	return ans;
 }

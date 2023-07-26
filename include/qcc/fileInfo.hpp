@@ -15,11 +15,10 @@ struct FileInfo
 {
 	fs::path _filePath;
 	std::shared_ptr<LanguageData> _languageData;
+	std::string _languageIdentifier;
 	std::shared_ptr<Language> _fileLanguage;
-	LineInfo _lineInfo;
 	
 	FileInfo(const fs::path& filePath, std::shared_ptr<LanguageData> languageData);
 	//temp
-	void printLineInfo();
 };
 #endif

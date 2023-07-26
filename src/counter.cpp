@@ -12,27 +12,29 @@ Counter::Counter(FileInfo* fileInfo)
 {
 }
 
-void Counter::count()
+std::unique_ptr<CountInfo> Counter::count()
 {
+	auto result{std::make_unique<CountInfo>(_fileInfo->_languageIdentifier)};
 	if(auto fileHandle = std::ifstream{_fileInfo->_filePath})
 	{
 		std::string line;
 		while(!fileHandle.eof())
 		{
 			std::getline(fileHandle, line);
-			countLine(std::move(line));
+			countLine(std::move(line), &result->_lineInfo);
 		}
-		--_fileInfo->_lineInfo.blanks;
-		_fileInfo->_lineInfo.total = _fileInfo->_lineInfo.blanks + _fileInfo->_lineInfo.comments +  _fileInfo->_lineInfo.code;
+		--result->_lineInfo.blanks;
+		result->_lineInfo.total = result->_lineInfo.blanks + result->_lineInfo.comments +  result->_lineInfo.code;
 	}
+	return result;
 }
 
-void Counter::countLine(std::string line)
+void Counter::countLine(std::string line, LineInfo* lineInfo)
 {
 	line = trimLeadingWhiteSpace(line);
 	//if line has only white spaces, it is blank line
 	if(isEmpty(line))
-		_fileInfo->_lineInfo.blanks++;
+		lineInfo->blanks++;
 	//if line aint blank, it must be either comment or code line
 	else
 	{	
@@ -40,10 +42,10 @@ void Counter::countLine(std::string line)
 		line = trimLeadingWhiteSpace(line);
 		//if line is empty/blank after trimming the comments, it is comment line
 		if(isEmpty(line))
-			_fileInfo->_lineInfo.comments++;
+			lineInfo->comments++;
 		//if line is not blank after trimming the comments, it is a code line
 		else
-			_fileInfo->_lineInfo.code++;
+			lineInfo->code++;
 	}
 }
 

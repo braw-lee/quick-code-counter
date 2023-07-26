@@ -9,6 +9,14 @@
 #include <iostream>
 #include <memory>
 
+void print(LineInfo li)
+{
+	std::cout<<"\nBlanks : "<<li.blanks;
+	std::cout<<"\nComments : "<<li.comments;
+	std::cout<<"\nCode : "<<li.code;
+	std::cout<<"\nTotal : "<<li.total;
+}
+
 int main(int argc, char** argv)
 {
 	Timer t;
@@ -19,7 +27,7 @@ int main(int argc, char** argv)
 	fs::path p {"src/main.cpp"};
 	FileInfo fi{p, data};
 	Counter c{&fi};
-	c.count();
-	fi.printLineInfo();
+	auto ans = c.count();
+	print(ans->_lineInfo);
 	std::cout<<"\n"<<t.elapsed();
 }

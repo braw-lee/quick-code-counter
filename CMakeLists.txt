@@ -17,6 +17,7 @@ set(
 	src/languageData.cpp
 	src/fileInfo.cpp
 	src/counter.cpp
+	src/countInfo.cpp
 )
 
 
