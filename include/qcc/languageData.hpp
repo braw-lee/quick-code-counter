@@ -12,20 +12,93 @@ class LanguageData
 private:
 	const std::unordered_map<std::string,std::string> _extensionMap
 	{
+		{"h","c header"},
+		
+		{"c","c source"},
+		
+		{"hh","c++ header"},
+		{"hpp","c++ header"},
+		{"hxx","c++ header"},
+
+		{"cc","c++ source"},
 		{"cpp","c++ source"},
 		{"cxx","c++ source"},
+		{"c++","c++ source"},
+		
+		{"cmake","CMake"},
+
+		{"css","CSS"},
+
+		{"html","HTML"},
+		{"htm","HTML"},
+
+		{"js","javascript"},
+		{"mjs", "javascript"},
+
 		{"py","python"}
 	};
 	const std::unordered_map<std::string,Language> _languageMap
 	{
-		{"c++ source",			//identifier
+		{	"c header",
 			{
-				{"//"},			//single line comments
-				{{"/*","*/"}},	//multiline comments
-				{{"\"","\""}}	//quotes
+				{"//"},
+				{{"/*","*/"}},
+				{{"\"","\""}}
 			}
 		},
-		{"python",
+		{	"c source",
+			{
+				{"//"},
+				{{"/*","*/"}},
+				{{"\"","\""}}
+			}
+		},
+		{	"c++ header",
+			{
+				{"//"},
+				{{"/*","*/"}},
+				{{"\"","\""}}
+			}
+		},
+		{	"c++ source",
+			{
+				{"//"},
+				{{"/*","*/"}},
+				{{"\"","\""}}
+			}
+		},
+		{
+			"CMake",
+			{
+				{"#"},
+				{},
+				{{"\"","\""}}
+			}
+		},
+		{	"CSS",
+			{
+				{"//"},
+				{{"/*","*/"}},
+				{{"\"","\""}}
+			}
+		},
+		{
+			"HTML",
+			{
+				{},
+				{{"<!--","-->"}},
+				{{"\"","\""}, {"'","'"}}
+			}
+		},
+		{
+			"javascript",
+			{
+				{"//"},
+				{"/*","*/"},
+				{{"\"","\""}}
+			}
+		},
+		{	"python",
 			{
 				{"#"},
 				{
