@@ -6,13 +6,17 @@
 
 #include <memory>
 #include <string>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 struct CountInfo
 {
+	fs::path _filePath;
 	std::string _languageIdentifier;
 	LineInfo _lineInfo;
 
-	CountInfo(std::string language);
+	CountInfo(fs::path filePath, std::string language);
 };
 
 #endif

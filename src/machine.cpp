@@ -1,8 +1,14 @@
 #include "../include/qcc/machine.hpp"
 #include "../include/qcc/directoryIterator.hpp"
+#include "../include/qcc/countInfo.hpp"
+#include "../include/qcc/counter.hpp"
+#include "../include/qcc/languageData.hpp"
+#include "../include/qcc/result.hpp"
 
+#include <algorithm>
 #include <cxxopts.hpp>
 #include <filesystem>
+#include <memory>
 #include <vector>
 #include <iostream>
 
@@ -10,8 +16,26 @@ int Machine::run(int argc, char** argv)
 {
 	UserInput input = parse(argc,argv);
 	auto filePaths = directoryIterator(input.targetDirectory,input.ignoreThem,input.ignoreHidden);
-	for(auto i : filePaths)
-		std::cout<<'\n'<<i.generic_string();
+	std::vector<std::unique_ptr<FileInfo>> files;
+	auto languageData{std::make_shared<LanguageData>()};
+	std::transform(filePaths.begin(), filePaths.end(), std::back_inserter(files), [languageData](fs::path& filePath)->std::unique_ptr<FileInfo>
+			{
+				auto file {std::make_unique<FileInfo>(filePath, languageData)};
+				return file;
+			});
+	std::vector<std::unique_ptr<CountInfo>> countInfoPtrs;
+	
+	Counter worker;
+	for(auto& file : files)
+	{
+		auto ptr = worker.count(std::move(file));
+		countInfoPtrs.push_back(std::move(ptr));
+	}
+	
+	Result res;
+	for(auto& it : countInfoPtrs)
+		res.insertCountInfo(it.get());
+	res.print();
 	return 0;
 }
 

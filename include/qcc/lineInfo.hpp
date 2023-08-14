@@ -11,4 +11,7 @@ struct LineInfo
 	size_t total{};
 };
 
+LineInfo operator+(const LineInfo& first, const LineInfo& second);
+void operator+=(LineInfo& first, const LineInfo& second);
+
 #endif

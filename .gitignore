@@ -13,5 +13,6 @@ todo.txt
 #ctags file
 tags
 
-#temporary code file
+#temporary dirs
 factory/
+tempTest/

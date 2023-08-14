@@ -4,7 +4,7 @@
 std::string LanguageData::getIdentifier(std::string&& extension)
 {
 	if(extension == "")
-		return "No extension";
+		return "Unknown";
 	auto it = _extensionMap.find(extension);
 	if(it == _extensionMap.end())
 		return "Unknown";
@@ -14,7 +14,7 @@ std::string LanguageData::getIdentifier(std::string&& extension)
 
 std::shared_ptr<Language> LanguageData::getLanguage(const std::string& identifier)
 {
-	if(identifier == "Unknown" || identifier == "No extension")
+	if(identifier == "Unknown")
 		return nullptr;
 	auto ans = std::make_shared<Language> (_languageMap.at(identifier));
 	return ans;

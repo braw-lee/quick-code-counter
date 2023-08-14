@@ -9,11 +9,11 @@
 class Counter
 {
 private:
-	FileInfo* _fileInfo;
+	std::unique_ptr<FileInfo> _fileInfo;
 	StringPair const* _currentMultiLineComment;
 public:
-	Counter(FileInfo* fileInfo);
-	std::unique_ptr<CountInfo> count();
+	Counter();
+	std::unique_ptr<CountInfo> count(std::unique_ptr<FileInfo> fileInfo);
 	void countLine(std::string line, LineInfo* lineInfo);
 	std::string trimLeadingWhiteSpace(const std::string& line);
 	bool isEmpty(const std::string& line);
@@ -21,5 +21,6 @@ public:
 	std::string trimComments(const std::string& line);
 	size_t searchCommentStartIndex(const std::string& line);
 	size_t searchCommentEndIndex(const std::string& line, const size_t commentStartIndex = std::string::npos);
+	size_t countTotalLines(std::ifstream& fileHandle);
 };
 #endif

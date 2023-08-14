@@ -35,6 +35,11 @@ private:
 		{"js","javascript"},
 		{"mjs", "javascript"},
 
+		{"json","JSON"},
+
+		{"md","markdown"},
+		{"markdown","markdown"},
+	
 		{"py","python"}
 	};
 	const std::unordered_map<std::string,Language> _languageMap
@@ -94,8 +99,24 @@ private:
 			"javascript",
 			{
 				{"//"},
-				{"/*","*/"},
+				{{"/*","*/"}},
 				{{"\"","\""}}
+			}
+		},
+		{
+			"JSON",
+			{
+				{},
+				{},
+				{}
+			}
+		},
+		{
+			"markdown",
+			{
+				{},
+				{},
+				{}
 			}
 		},
 		{	"python",

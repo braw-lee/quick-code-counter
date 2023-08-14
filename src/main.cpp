@@ -21,13 +21,15 @@ int main(int argc, char** argv)
 {
 	Timer t;
 	Machine myMachine;
-//	myMachine.run(argc, argv);
+	myMachine.run(argc, argv);
+/*
 	auto data {std::make_shared<LanguageData>()};
 	std::string rootDir = PROJECT_DIR;
-	fs::path p {"src/main.cpp"};
+	fs::path p {"tests/tempTest/ab.cpp"};
 	FileInfo fi{p, data};
 	Counter c{&fi};
 	auto ans = c.count();
 	print(ans->_lineInfo);
 	std::cout<<"\n"<<t.elapsed();
+*/
 }

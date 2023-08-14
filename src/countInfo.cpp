@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-CountInfo::CountInfo(std::string languageIdentifier)
-	:_languageIdentifier{languageIdentifier}
+CountInfo::CountInfo(fs::path filePath, std::string languageIdentifier)
+	:_filePath{filePath},_languageIdentifier{languageIdentifier}
 {
 }

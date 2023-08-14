@@ -18,7 +18,10 @@ set(
 	src/fileInfo.cpp
 	src/counter.cpp
 	src/countInfo.cpp
-)
+	src/fileCountInfo.cpp
+	src/lineInfo.cpp
+	src/result.cpp
+	)
 
 
 add_executable(

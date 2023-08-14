@@ -4,27 +4,36 @@
 #include <cstring>
 #include <filesystem>
 #include <fstream>
+#include <iterator>
 #include <memory>
 #include <string_view>
 
-Counter::Counter(FileInfo* fileInfo)
-	:_fileInfo{fileInfo}, _currentMultiLineComment{nullptr}
+Counter::Counter()
+	:_fileInfo{nullptr}, _currentMultiLineComment{nullptr}
 {
 }
 
-std::unique_ptr<CountInfo> Counter::count()
+std::unique_ptr<CountInfo> Counter::count(std::unique_ptr<FileInfo> fileInfo)
 {
-	auto result{std::make_unique<CountInfo>(_fileInfo->_languageIdentifier)};
+	if(fileInfo == nullptr)
+		return nullptr;
+	_fileInfo = std::move(fileInfo);
+	auto result{std::make_unique<CountInfo>(_fileInfo->_filePath,  _fileInfo->_languageIdentifier)};
 	if(auto fileHandle = std::ifstream{_fileInfo->_filePath})
 	{
-		std::string line;
-		while(!fileHandle.eof())
+		if(result->_languageIdentifier == "Unknown")
+			result->_lineInfo.total = countTotalLines(fileHandle);
+		else
 		{
-			std::getline(fileHandle, line);
-			countLine(std::move(line), &result->_lineInfo);
+			std::string line;
+			while(!fileHandle.eof())
+			{
+				std::getline(fileHandle, line);
+				countLine(std::move(line), &result->_lineInfo);
+			}
+			--result->_lineInfo.blanks;
+			result->_lineInfo.total = result->_lineInfo.blanks + result->_lineInfo.comments +  result->_lineInfo.code;
 		}
-		--result->_lineInfo.blanks;
-		result->_lineInfo.total = result->_lineInfo.blanks + result->_lineInfo.comments +  result->_lineInfo.code;
 	}
 	return result;
 }
@@ -133,4 +142,9 @@ size_t Counter::searchCommentEndIndex(const std::string& line, const size_t comm
 		return ans + endCommentSize;
 	}
 	return ans;
+}
+
+size_t Counter::countTotalLines(std::ifstream& fileHandle)
+{
+	return std::count(std::istreambuf_iterator<char>(fileHandle), std::istreambuf_iterator<char>(), '\n');
 }
