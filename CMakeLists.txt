@@ -21,8 +21,8 @@ set(
 	src/fileCountInfo.cpp
 	src/lineInfo.cpp
 	src/result.cpp
+	src/textFormatting.cpp
 	)
-
 
 add_executable(
 		${EXECUTABE}

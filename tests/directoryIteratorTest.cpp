@@ -14,18 +14,18 @@ protected:
 	std::vector<fs::path> _calculatedAns;
 	fs::path _targetPath;
 	std::vector<std::string> _ignoreThem;
-	bool _ignoreHidden;
+	bool _includeHidden;
 	
-	void set(const fs::path&& targetPath, const std::vector<std::string>&& ignoreThem, const bool ignoreHidden)
+	void set(const fs::path&& targetPath, const std::vector<std::string>&& ignoreThem, const bool includeHidden)
 	{
 		_targetPath = targetPath;
 		_ignoreThem = ignoreThem;
-		_ignoreHidden = ignoreHidden;
+		_includeHidden = includeHidden;
 	}
 
 	void calculateAns()
 	{
-		_calculatedAns = directoryIterator(_targetPath, _ignoreThem, _ignoreHidden);
+		_calculatedAns = directoryIterator(_targetPath, _ignoreThem, _includeHidden);
 		//expectedAns can be in different order , so we sort both vectors and then compare
 		std::sort(_calculatedAns.begin(), _calculatedAns.end());
 	}
@@ -55,7 +55,7 @@ TEST_F(DirectoryIteratorTest, pathToFile)
 
 TEST_F(DirectoryIteratorTest, allFiles)
 {
-	set(pathToTestsDir + "dirForTest",{},false);
+	set(pathToTestsDir + "dirForTest",{},true);
 	calculateAns();
 	_expectedAns = {
 		pathToTestsDir + "dirForTest/file1.cpp",
@@ -74,7 +74,7 @@ TEST_F(DirectoryIteratorTest, allFiles)
 
 TEST_F(DirectoryIteratorTest, ignoreHiddenFiles)
 {
-	set(pathToTestsDir + "dirForTest",{},true);
+	set(pathToTestsDir + "dirForTest",{},false);
 	calculateAns();
 	_expectedAns = {
 		pathToTestsDir + "dirForTest/file1.cpp",
@@ -88,7 +88,7 @@ TEST_F(DirectoryIteratorTest, ignoreHiddenFiles)
 
 TEST_F(DirectoryIteratorTest, ignoreSpecificFiles)
 {
-	set(pathToTestsDir + "dirForTest",{"file1.cpp","dir1"},false);
+	set(pathToTestsDir + "dirForTest",{"file1.cpp","dir1"},true);
 	calculateAns();
 	_expectedAns = {
 		pathToTestsDir + "dirForTest/file2.cpp",

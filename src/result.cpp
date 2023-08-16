@@ -1,5 +1,6 @@
 #include "../include/qcc/result.hpp"
 #include "../include/qcc/countInfo.hpp"
+#include "../include/qcc/textFormatting.hpp"
 
 #include <algorithm>
 #include <array>
@@ -22,19 +23,6 @@ void Result::insertCountInfo(CountInfo* ci)
 	{
 		FileCountInfo temp(ci);
 		_finalData[ci->_languageIdentifier] = temp;
-	}
-}
-
-void fillCell(std::string& cell, size_t cellSize, bool alignLeft)
-{
-	size_t currCellSize = cell.size();
-	while(currCellSize != cellSize)
-	{
-		if(alignLeft)
-			cell = cell + " ";
-		else
-			cell = " " + cell;
-		currCellSize = cell.size();
 	}
 }
 
@@ -123,19 +111,4 @@ void Result::print()
 		}
 	}
 	std::cout<<'\n';
-}
-
-std::string padBoth(const std::string& s)
-{
-	return "| " + s + " |";
-}
-
-std::string padLeft(const std::string& s)
-{
-	return "| " + s + " ";
-}
-
-std::string padRight(const std::string& s)
-{
-	return " " + s + " |";
 }
