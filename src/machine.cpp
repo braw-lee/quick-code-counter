@@ -4,6 +4,7 @@
 #include "../include/qcc/counter.hpp"
 #include "../include/qcc/languageData.hpp"
 #include "../include/qcc/result.hpp"
+#include "../include/qcc/verboseOutput.hpp"
 
 #include <algorithm>
 #include <cxxopts.hpp>
@@ -31,12 +32,19 @@ int Machine::run(int argc, char** argv)
 		auto ptr = worker.count(std::move(file));
 		countInfoPtrs.push_back(std::move(ptr));
 	}
-	
-	Result res;
-	for(auto& it : countInfoPtrs)
-		res.insertCountInfo(it.get());
-	res.print();
-	return 0;
+	if(input.verbose == true)
+	{
+		printVerboseOutput(countInfoPtrs);
+		return 0;
+	}
+	else
+	{
+		Result res;
+		for(auto& it : countInfoPtrs)
+			res.insertCountInfo(it.get());
+		res.print();
+		return 0;
+	}
 }
 
 UserInput Machine::parse(int argc, char** argv)

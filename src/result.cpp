@@ -77,7 +77,7 @@ void Result::print()
 	for(size_t i=0; i<heading.size(); i++)
 	{
 		fillCell(heading[i], cellSize[i], true);
-		if(i == 0)
+		if(i == language)
 			std::cout<<padBoth(heading[i]);
 		else
 			std::cout<<padRight(heading[i]);
