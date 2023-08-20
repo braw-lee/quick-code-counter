@@ -14,11 +14,11 @@ namespace fs = std::filesystem;
 struct FileInfo
 {
 	fs::path _filePath;
-	std::shared_ptr<LanguageData> _languageData;
+	const LanguageData& _languageData;
 	std::string _languageIdentifier;
 	std::shared_ptr<Language> _fileLanguage;
 	
-	FileInfo(const fs::path& filePath, std::shared_ptr<LanguageData> languageData);
+	FileInfo(const fs::path& filePath, const LanguageData& languageData);
 	//temp
 };
 #endif

@@ -18,7 +18,7 @@ int Machine::run(int argc, char** argv)
 	UserInput input = parse(argc,argv);
 	auto filePaths = directoryIterator(input.targetDirectory,input.ignoreThem,input.includeHidden);
 	std::vector<std::unique_ptr<FileInfo>> files;
-	auto languageData{std::make_shared<LanguageData>()};
+	LanguageData languageData;
 	std::transform(filePaths.begin(), filePaths.end(), std::back_inserter(files), [languageData](fs::path& filePath)->std::unique_ptr<FileInfo>
 			{
 				auto file {std::make_unique<FileInfo>(filePath, languageData)};

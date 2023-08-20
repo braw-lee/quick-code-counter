@@ -4,10 +4,10 @@
 #include <iostream>
 #include <string>
 
-FileInfo::FileInfo(const fs::path& tempFilePath, std::shared_ptr<LanguageData> languageData)
+FileInfo::FileInfo(const fs::path& tempFilePath, const LanguageData& languageData)
 	:_filePath{tempFilePath},
 	_languageData{languageData},
-	_languageIdentifier{_languageData->getIdentifier(
+	_languageIdentifier{_languageData.getIdentifier(
 			[this]()->std::string
 			{
 				if(_filePath.has_extension())
@@ -18,6 +18,6 @@ FileInfo::FileInfo(const fs::path& tempFilePath, std::shared_ptr<LanguageData> l
 				else
 					return "";
 			}())},
-	_fileLanguage { _languageData->getLanguage(_languageIdentifier)}
+	_fileLanguage { _languageData.getLanguage(_languageIdentifier)}
 {
 }

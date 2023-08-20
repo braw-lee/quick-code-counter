@@ -131,8 +131,8 @@ private:
 		}
 	};
 public:
-	std::string getIdentifier(std::string&& extension);
-	std::shared_ptr<Language> getLanguage(const std::string& extension);
+	std::string getIdentifier (std::string&& extension) const;
+	std::shared_ptr<Language> getLanguage(const std::string& extension) const;
 };
 
 #endif
