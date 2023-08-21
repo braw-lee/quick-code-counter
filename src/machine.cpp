@@ -19,7 +19,7 @@ int Machine::run(int argc, char** argv)
 	auto filePaths = directoryIterator(input.targetDirectory,input.ignoreThem,input.includeHidden);
 	std::vector<std::unique_ptr<FileInfo>> files;
 	LanguageData languageData;
-	std::transform(filePaths.begin(), filePaths.end(), std::back_inserter(files), [languageData](fs::path& filePath)->std::unique_ptr<FileInfo>
+	std::transform(filePaths.begin(), filePaths.end(), std::back_inserter(files), [&languageData](fs::path& filePath)->std::unique_ptr<FileInfo>
 			{
 				auto file {std::make_unique<FileInfo>(filePath, languageData)};
 				return file;

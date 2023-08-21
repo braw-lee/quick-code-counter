@@ -3,6 +3,7 @@
 
 #include "fileCountInfo.hpp"
 #include "countInfo.hpp"
+#include "languageId.hpp"
 
 #include <memory>
 #include <string_view>
@@ -11,7 +12,7 @@
 
 struct Result
 {
-	std::unordered_map<std::string, FileCountInfo> _finalData;
+	std::unordered_map<LanguageId, FileCountInfo> _finalData;
 	void insertCountInfo(CountInfo* ci);
 	void print();
 };

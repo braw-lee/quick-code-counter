@@ -2,6 +2,7 @@
 #define LANGUAGE_DATA_HPP
 
 #include "language.hpp"
+#include "languageId.hpp"
 
 #include <memory>
 #include <unordered_map>
@@ -10,77 +11,76 @@
 class LanguageData
 {
 private:
-	const std::unordered_map<std::string,std::string> _extensionMap
+	const std::unordered_map<std::string,LanguageId> _extensionMap
 	{
-		{"h","c header"},
+		{"h", LanguageId::c_header},
 		
-		{"c","c source"},
+		{"c", LanguageId::c_source},
 		
-		{"hh","c++ header"},
-		{"hpp","c++ header"},
-		{"hxx","c++ header"},
+		{"hh", LanguageId::cpp_header},
+		{"hpp", LanguageId::cpp_header},
+		{"hxx", LanguageId::cpp_header},
 
-		{"cc","c++ source"},
-		{"cpp","c++ source"},
-		{"cxx","c++ source"},
-		{"c++","c++ source"},
+		{"cc", LanguageId::cpp_source},
+		{"cpp", LanguageId::cpp_source},
+		{"cxx", LanguageId::cpp_source},
+		{"c++", LanguageId::cpp_source},
 		
-		{"cmake","CMake"},
+		{"cmake", LanguageId::cmake},
 
-		{"css","CSS"},
+		{"css", LanguageId::css},
 
-		{"html","HTML"},
-		{"htm","HTML"},
+		{"html", LanguageId::html},
+		{"htm", LanguageId::html},
 
-		{"js","javascript"},
-		{"mjs", "javascript"},
+		{"js", LanguageId::javascript},
+		{"mjs", LanguageId:: javascript},
 
-		{"json","JSON"},
+		{"json", LanguageId::json},
 
-		{"md","markdown"},
-		{"markdown","markdown"},
+		{"md", LanguageId::markdown},
+		{"markdown", LanguageId::markdown},
 	
-		{"py","python"}
+		{"py", LanguageId::python}
 	};
-	const std::unordered_map<std::string,Language> _languageMap
+	const std::unordered_map<LanguageId,Language> _languageMap
 	{
-		{	"c header",
+		{	LanguageId::c_header,
 			{
 				{"//"},
 				{{"/*","*/"}},
 				{{"\"","\""}}
 			}
 		},
-		{	"c source",
+		{	LanguageId::c_source,
 			{
 				{"//"},
 				{{"/*","*/"}},
 				{{"\"","\""}}
 			}
 		},
-		{	"c++ header",
+		{	LanguageId::cpp_header,
 			{
 				{"//"},
 				{{"/*","*/"}},
 				{{"\"","\""}}
 			}
 		},
-		{	"c++ source",
+		{	LanguageId::cpp_source,
 			{
 				{"//"},
 				{{"/*","*/"}},
 				{{"\"","\""}}
 			}
 		},
-		{
-			"CMake",
+		{	LanguageId::cmake,
 			{
 				{"#"},
 				{},
 				{{"\"","\""}}
 			}
 		},
-		{	"CSS",
+		{	LanguageId::css,
 			{
 				{"//"},
 				{{"/*","*/"}},
@@ -88,7 +88,7 @@ private:
 			}
 		},
 		{
-			"HTML",
+			LanguageId::html,
 			{
 				{},
 				{{"<!--","-->"}},
@@ -96,7 +96,7 @@ private:
 			}
 		},
 		{
-			"javascript",
+			LanguageId::javascript,
 			{
 				{"//"},
 				{{"/*","*/"}},
@@ -104,7 +104,7 @@ private:
 			}
 		},
 		{
-			"JSON",
+			LanguageId::json,
 			{
 				{},
 				{},
@@ -112,14 +112,14 @@ private:
 			}
 		},
 		{
-			"markdown",
+			LanguageId::markdown,
 			{
 				{},
 				{},
 				{}
 			}
 		},
-		{	"python",
+		{	LanguageId::python,
 			{
 				{"#"},
 				{
@@ -131,8 +131,8 @@ private:
 		}
 	};
 public:
-	std::string getIdentifier (std::string&& extension) const;
-	std::shared_ptr<Language> getLanguage(const std::string& extension) const;
+	LanguageId getIdentifier (std::string&& extension) const;
+	std::shared_ptr<Language> getLanguage(LanguageId id) const;
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "../include/qcc/verboseOutput.hpp"
 #include "../include/qcc/textFormatting.hpp"
+#include "../include/qcc/languageId.hpp"
 
 #include <array>
 #include <memory>
@@ -42,7 +43,7 @@ void printVerboseOutput(const std::vector<std::unique_ptr<CountInfo>>& countInfo
 	for(auto& ptr : countInfoPtrs)
 	{
 		cellSize[file] = std::max(cellSize[file], ptr->_filePath.generic_string().size());
-		cellSize[language] = std::max(cellSize[language], ptr->_languageIdentifier.size());
+		cellSize[language] = std::max(cellSize[language], idToString(ptr->_languageIdentifier).size());
 		cellSize[code] = std::max(cellSize[code], std::to_string(ptr->_lineInfo.code).size());
 		cellSize[comment] = std::max(cellSize[comment], std::to_string(ptr->_lineInfo.comments).size());
 		cellSize[blank] = std::max(cellSize[blank], std::to_string(ptr->_lineInfo.blanks).size());
@@ -67,7 +68,7 @@ void printVerboseOutput(const std::vector<std::unique_ptr<CountInfo>>& countInfo
 		std::array<std::string, ratio + 1> cellString
 		{
 			ptr->_filePath.generic_string(),
-			ptr->_languageIdentifier,
+			std::string(idToString(ptr->_languageIdentifier)),
 			std::to_string(ptr->_lineInfo.code),
 			std::to_string(ptr->_lineInfo.comments),
 			std::to_string(ptr->_lineInfo.blanks),

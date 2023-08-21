@@ -21,7 +21,7 @@ std::unique_ptr<CountInfo> Counter::count(std::unique_ptr<FileInfo> fileInfo)
 	auto result{std::make_unique<CountInfo>(_fileInfo->_filePath,  _fileInfo->_languageIdentifier)};
 	if(auto fileHandle = std::ifstream{_fileInfo->_filePath})
 	{
-		if(result->_languageIdentifier == "Unknown")
+		if(result->_languageIdentifier == LanguageId::unknown)
 			result->_lineInfo.total = countTotalLines(fileHandle);
 		else
 		{

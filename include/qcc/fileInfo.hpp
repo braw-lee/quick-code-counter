@@ -4,6 +4,7 @@
 #include "language.hpp"
 #include "languageData.hpp"
 #include "lineInfo.hpp"
+#include "languageId.hpp"
 
 #include <filesystem>
 #include <memory>
@@ -15,7 +16,7 @@ struct FileInfo
 {
 	fs::path _filePath;
 	const LanguageData& _languageData;
-	std::string _languageIdentifier;
+	LanguageId _languageIdentifier;
 	std::shared_ptr<Language> _fileLanguage;
 	
 	FileInfo(const fs::path& filePath, const LanguageData& languageData);

@@ -1,6 +1,7 @@
 #include "../include/qcc/result.hpp"
 #include "../include/qcc/countInfo.hpp"
 #include "../include/qcc/textFormatting.hpp"
+#include "../include/qcc/languageId.hpp"
 
 #include <algorithm>
 #include <array>
@@ -61,7 +62,7 @@ void Result::print()
 
 	for(auto& it : _finalData)
 	{
-		cellSize[language] = std::max(cellSize[language], it.first.size());
+		cellSize[language] = std::max(cellSize[language], idToString(it.first).size());
 		cellSize[fileCount] = std::max(cellSize[fileCount], std::to_string(it.second._fileCount).size());
 		cellSize[code] = std::max(cellSize[code], std::to_string(it.second._lineInfo.code).size());
 		cellSize[comment] = std::max(cellSize[comment], std::to_string(it.second._lineInfo.comments).size());
@@ -85,8 +86,9 @@ void Result::print()
 	std::cout<<'\n'<<rowSeperator;
 	for(auto& it : _finalData)
 	{
+
 		std::array<std::string, ratio + 1> cellString {
-			it.first,
+			std::string(idToString(it.first)),	
 			std::to_string(it.second._fileCount),
 			std::to_string(it.second._lineInfo.code),
 			std::to_string(it.second._lineInfo.comments),
