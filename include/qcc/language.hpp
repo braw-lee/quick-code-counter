@@ -10,7 +10,7 @@ struct Language
 {
 	std::vector<std::string> singleLineComment;
 	std::vector<StringPair> multiLineComment;
-	std::vector<StringPair> quotes;
+	//std::vector<StringPair> quotes;
 };
 
 #endif

@@ -7,17 +7,7 @@
 FileInfo::FileInfo(const fs::path& tempFilePath, const LanguageData& languageData)
 	:_filePath{tempFilePath},
 	_languageData{languageData},
-	_languageIdentifier{_languageData.getIdentifier(
-			[this]()->std::string
-			{
-				if(_filePath.has_extension())
-				{
-					std::string ext{_filePath.extension()};
-					return ext.substr(1);
-				}
-				else
-					return "";
-			}())},
+	_languageIdentifier{_languageData.getIdentifier(_filePath)},
 	_fileLanguage { _languageData.getLanguage(_languageIdentifier)}
 {
 }
