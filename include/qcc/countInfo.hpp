@@ -2,7 +2,6 @@
 #define COUNT_INFO_HPP
 
 #include "lineInfo.hpp"
-#include "language.hpp"
 #include "languageId.hpp"
 
 #include <memory>

@@ -8,6 +8,6 @@ FileInfo::FileInfo(const fs::path& tempFilePath, const LanguageData& languageDat
 	:_filePath{tempFilePath},
 	_languageData{languageData},
 	_languageIdentifier{_languageData.getIdentifier(_filePath)},
-	_fileLanguage { _languageData.getLanguage(_languageIdentifier)}
+	_fileCommentInfo{_languageData.getCommentInfo(_languageIdentifier)}
 {
 }

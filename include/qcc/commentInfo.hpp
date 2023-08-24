@@ -1,12 +1,12 @@
-#ifndef LANGUAGE_HPP
-#define LANGUAGE_HPP
+#ifndef COMMENT_INFO_HPP
+#define COMMENT_INFO_HPP
 
 #include "utility.hpp"
 
 #include <string>
 #include <vector>
 
-struct Language
+struct CommentInfo
 {
 	std::vector<std::string> singleLineComment;
 	std::vector<StringPair> multiLineComment;

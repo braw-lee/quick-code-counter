@@ -1,7 +1,7 @@
 #ifndef LANGUAGE_DATA_HPP
 #define LANGUAGE_DATA_HPP
 
-#include "language.hpp"
+#include "commentInfo.hpp"
 #include "languageId.hpp"
 
 #include <memory>
@@ -14,22 +14,22 @@ namespace fs = std::filesystem;
 class LanguageData
 {
 private:
-	Language cStyle
+	CommentInfo cStyle
 	{
 		{"//"},
 		{{"/*","*/"}},
 	};
-	Language shellStyle
+	CommentInfo shellStyle
 	{
 		{"#"},
 		{}
 	};
-	Language htmlStyle
+	CommentInfo htmlStyle
 	{
 		{},
 		{{"<!--","-->"}}
 	};
-	Language noCommentStyle
+	CommentInfo noCommentStyle
 	{
 		{},
 		{}
@@ -82,7 +82,7 @@ private:
 		{".gitmodules", LanguageId::git}
 	};
 
-	const std::unordered_map<LanguageId,Language> _languageMap
+	const std::unordered_map<LanguageId,CommentInfo> _languageMap
 	{
 		{
 			LanguageId::bourne_shell,
@@ -157,7 +157,7 @@ private:
 	};
 public:
 	LanguageId getIdentifier (const fs::path& filePath) const;
-	std::shared_ptr<Language> getLanguage(LanguageId id) const;
+	std::shared_ptr<CommentInfo> getCommentInfo(LanguageId id) const;
 };
 
 #endif

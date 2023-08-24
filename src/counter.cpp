@@ -80,7 +80,7 @@ bool Counter::isEmpty(const std::string& line)
 
 bool Counter::isSingleLineComment(const std::string& line)
 {
-	for(auto it : _fileInfo->_fileLanguage->singleLineComment)
+	for(auto it : _fileInfo->_fileCommentInfo->singleLineComment)
 		if(line.size() >= it.size() && line.substr(0,it.size()) == it)
 				return true;
 	return false;
@@ -118,7 +118,7 @@ std::string Counter::trimComments(const std::string& line)
 size_t Counter::searchCommentStartIndex(const std::string& line)
 {
 	for(size_t i=0; i<line.size(); i++)
-		for(auto& it : _fileInfo->_fileLanguage->multiLineComment)
+		for(auto& it : _fileInfo->_fileCommentInfo->multiLineComment)
 			if(line.size() - i >= it.start.size() && line.substr(i,it.start.size()) == it.start)
 			{
 				_currentMultiLineComment = &it;

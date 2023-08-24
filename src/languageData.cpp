@@ -22,10 +22,10 @@ LanguageId LanguageData::getIdentifier (const fs::path& filePath) const
 	return LanguageId::unknown;
 }
 
-std::shared_ptr<Language> LanguageData::getLanguage(LanguageId identifier) const
+std::shared_ptr<CommentInfo> LanguageData::getCommentInfo(LanguageId identifier) const
 {
 	if(identifier == LanguageId::unknown)
 		return nullptr;
-	auto ans = std::make_shared<Language> (_languageMap.at(identifier));
+	auto ans = std::make_shared<CommentInfo> (_languageMap.at(identifier));
 	return ans;
 }
