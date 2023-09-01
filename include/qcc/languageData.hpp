@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <string>
 #include <filesystem>
+#include <unordered_set>
 
 namespace fs = std::filesystem;
 
@@ -76,10 +77,19 @@ private:
 	const std::unordered_map<std::string, LanguageId> _fileNameMap
 	{
 		{"CMakeLists.txt", LanguageId::cmake},
-		{"Makefile", LanguageId::make_file},
 		{".gitignore", LanguageId::git},
 		{".gitattributes", LanguageId::git},
-		{".gitmodules", LanguageId::git}
+		{".gitmodules", LanguageId::git},
+		{"Makefile", LanguageId::make_file}
+	};
+
+	const std::unordered_map<std::string, LanguageId> _shebangMap
+	{
+		{"sh", LanguageId::bourne_shell},
+		{"bash", LanguageId::bourne_shell},
+		{"python", LanguageId::python},
+		{"python2", LanguageId::python},
+		{"python3", LanguageId::python}
 	};
 
 	const std::unordered_map<LanguageId,CommentInfo> _languageMap
@@ -158,6 +168,7 @@ private:
 public:
 	LanguageId getIdentifier (const fs::path& filePath) const;
 	std::shared_ptr<CommentInfo> getCommentInfo(LanguageId id) const;
+	std::string getShebang(const fs::path& filePath) const;
 };
 
 #endif
