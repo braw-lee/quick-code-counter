@@ -5,7 +5,7 @@
 build/
 
 #todo file
-todo.txt
+todo.md
 
 #vcpkg cache file
 .cache
