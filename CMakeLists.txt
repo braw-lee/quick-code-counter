@@ -22,7 +22,7 @@ set(
 	src/lineInfo.cpp
 	src/result.cpp
 	src/textFormatting.cpp
-	src/verboseOutput.cpp
+	src/verboseResult.cpp
 	)
 
 add_executable(
