@@ -10,12 +10,13 @@
 
 VerboseResult::VerboseResult(const std::vector<std::unique_ptr<CountInfo>>& countInfoPtrs)
 	:_countInfoPtrs{countInfoPtrs}
-{}
+{	
+	setCellSize();
+	setRowSeperator();
+}
 
 void VerboseResult::print()
 {
-	setCellSize();
-	setRowSeperator();
 	printHeading();
 	printRowSeperator();
 

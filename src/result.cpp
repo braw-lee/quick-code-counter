@@ -9,13 +9,19 @@
 #include <cstddef>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <utility>
 #include <iostream>
 #include <vector>
 
 Result::Result(const std::vector<std::unique_ptr<CountInfo>>& countInfoPtrs)
 	:_countInfoPtrs{countInfoPtrs}
-{}
+{
+	setFinalData();
+	setTotalColumn();
+	setCellSize();
+	setRowSeperator();
+}
 
 void Result::setFinalData()
 {
@@ -30,22 +36,19 @@ void Result::insertCountInfo(CountInfo* ci)
 	{
 		it->second._lineInfo += ci->_lineInfo;
 		it->second._fileCount++;
-		_total._lineInfo += ci->_lineInfo;
+		_totalCount._lineInfo += ci->_lineInfo;
 	}
 	else
 	{
 		FileCountInfo temp(ci);
 		_finalData[ci->_languageIdentifier] = temp;
-		_total._lineInfo += temp._lineInfo;
+		_totalCount._lineInfo += temp._lineInfo;
 	}
-	++_total._fileCount;
+	++_totalCount._fileCount;
 }
 
 void Result::print()
 {
-	setFinalData();
-	setCellSize();
-	setRowSeperator();
 	printHeading();
 	printRowSeperator();
 	for(auto& it : _finalData)
@@ -57,12 +60,12 @@ void Result::print()
 			std::to_string(it.second._lineInfo.comments),
 			std::to_string(it.second._lineInfo.blanks),
 			std::to_string(it.second._lineInfo.total),
-			std::to_string(it.second._ratio)
+			std::to_string(100.0 * it.second._lineInfo.total / _totalCount._lineInfo.total)
 		};
 		printColumn(cellString);
 	}
 	printRowSeperator();
-	printTotal();
+	printColumn(_total);
 	std::cout<<'\n';
 }
 
@@ -76,8 +79,15 @@ void Result::setCellSize()
 		_cellSize[comment] = std::max(_cellSize[comment], std::to_string(it.second._lineInfo.comments).size());
 		_cellSize[blank] = std::max(_cellSize[blank], std::to_string(it.second._lineInfo.blanks).size());
 		_cellSize[total] = std::max(_cellSize[total], std::to_string(it.second._lineInfo.total).size());
-		_cellSize[ratio] = std::max(_cellSize[ratio], std::to_string(it.second._ratio).size());
+		_cellSize[ratio] = std::max(_cellSize[ratio], std::to_string(100.0 * it.second._lineInfo.total / _totalCount._lineInfo.total).size());
 	}
+	_cellSize[language] = std::max(_cellSize[language], _total[language].size());
+	_cellSize[fileCount] = std::max(_cellSize[fileCount], _total[fileCount].size());
+	_cellSize[code] = std::max(_cellSize[code], _total[code].size());
+	_cellSize[comment] = std::max(_cellSize[comment], _total[comment].size());
+	_cellSize[blank] = std::max(_cellSize[blank], _total[blank].size());
+	_cellSize[total] = std::max(_cellSize[total], _total[total].size());
+	_cellSize[ratio] = std::max(_cellSize[ratio], _total[ratio].size());
 }
 
 void Result::printHeading()
@@ -90,20 +100,6 @@ void Result::printHeading()
 		else
 			std::cout<<padRight(_heading[i]);
 	}
-}
-
-void Result::printTotal()
-{
-	std::array<std::string, column_size> total {
-		"Total",	
-		std::to_string(_total._fileCount),
-		std::to_string(_total._lineInfo.code),
-		std::to_string(_total._lineInfo.comments),
-		std::to_string(_total._lineInfo.blanks),
-		std::to_string(_total._lineInfo.total),
-		std::to_string(_total._ratio)
-	};
-	printColumn(total);
 }
 
 void Result::printColumn(std::array<std::string, column_size>& column)
@@ -134,4 +130,18 @@ void Result::setRowSeperator()
 void Result::printRowSeperator()
 {
 	std::cout<<'\n'<<_rowSeperator;
+}
+
+void Result::setTotalColumn()
+{
+	_total = 
+	{
+		"Total",
+		std::to_string(_totalCount._fileCount),
+		std::to_string(_totalCount._lineInfo.code),
+		std::to_string(_totalCount._lineInfo.comments),
+		std::to_string(_totalCount._lineInfo.blanks),
+		std::to_string(_totalCount._lineInfo.total),
+		std::to_string(100.00)
+	};
 }

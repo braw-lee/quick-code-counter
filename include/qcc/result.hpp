@@ -8,7 +8,6 @@
 
 #include <array>
 #include <memory>
-#include <string_view>
 #include <unordered_map>
 #include <string>
 
@@ -45,7 +44,9 @@ class Result
 		_heading[total].size(),
 		_heading[ratio].size()
 	};
-	FileCountInfo _total;
+
+	std::array<std::string, column_size> _total;
+	FileCountInfo _totalCount;
 	std::unordered_map<LanguageId, FileCountInfo> _finalData;
 	const std::vector<std::unique_ptr<CountInfo>>& _countInfoPtrs;
 	std::string _rowSeperator;
@@ -53,11 +54,11 @@ class Result
 	void setFinalData();
 	void setCellSize();
 	void printHeading();
-	void printTotal();
 	void printColumn(std::array<std::string, column_size>& column);
 	void setRowSeperator();
 	void printRowSeperator();
 	void insertCountInfo(CountInfo* ci);
+	void setTotalColumn();
 	
 public:
 	Result(const std::vector<std::unique_ptr<CountInfo>>& countInfoPtrs);
