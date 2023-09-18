@@ -17,6 +17,8 @@ std::unique_ptr<CountInfo> Counter::count(std::unique_ptr<FileInfo> fileInfo)
 {
 	if(fileInfo == nullptr)
 		return nullptr;
+	//reset pointer as it may still be set to something from previous file
+	_currentMultiLineComment = nullptr;
 	_fileInfo = std::move(fileInfo);
 	auto result{std::make_unique<CountInfo>(_fileInfo->_filePath,  _fileInfo->_languageIdentifier)};
 	if(auto fileHandle = std::ifstream{_fileInfo->_filePath})
