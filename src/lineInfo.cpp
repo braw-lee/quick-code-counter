@@ -12,3 +12,11 @@ void operator+=(LineInfo& first, const LineInfo& second)
 	first.comments += second.comments;
 	first.total += second.total;
 }
+
+bool operator==(const LineInfo& first, const LineInfo& second)
+{
+	if(first.total != second.total || first.blanks != second.blanks || first.code != second.code || first.comments != second.comments)
+		return false;
+	else
+		return true;
+}

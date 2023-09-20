@@ -7,6 +7,7 @@ enable_testing()
 add_executable(
 	test_qcc
 	./directoryIteratorTest.cpp
+	./counterTest.cpp
 )
 target_link_libraries(test_qcc PRIVATE GTest::gtest_main PUBLIC qcc_lib)
 target_compile_features(test_qcc PRIVATE cxx_std_17)

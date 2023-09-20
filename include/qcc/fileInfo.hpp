@@ -15,10 +15,10 @@ namespace fs = std::filesystem;
 struct FileInfo
 {
 	fs::path _filePath;
-	const LanguageData& _languageData;
+	static inline const LanguageData _languageData{};
 	LanguageId _languageIdentifier;
 	std::shared_ptr<CommentInfo> _fileCommentInfo;
 	
-	FileInfo(const fs::path& filePath, const LanguageData& languageData);
+	FileInfo(const fs::path& filePath);
 };
 #endif

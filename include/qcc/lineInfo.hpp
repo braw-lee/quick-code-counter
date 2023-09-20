@@ -13,5 +13,6 @@ struct LineInfo
 
 LineInfo operator+(const LineInfo& first, const LineInfo& second);
 void operator+=(LineInfo& first, const LineInfo& second);
+bool operator==(const LineInfo& first, const LineInfo& second);
 
 #endif

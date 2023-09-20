@@ -4,19 +4,17 @@
 #include "lineInfo.hpp"
 #include "languageId.hpp"
 
-#include <memory>
-#include <string>
 #include <filesystem>
 
 namespace fs = std::filesystem;
 
 struct CountInfo
 {
-	fs::path _filePath;
+	const fs::path& _filePath;
 	LanguageId _languageIdentifier;
 	LineInfo _lineInfo;
 
-	CountInfo(fs::path filePath, LanguageId language);
+	CountInfo(const fs::path& filePath, const LanguageId language);
 };
 
 #endif

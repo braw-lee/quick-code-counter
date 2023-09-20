@@ -10,16 +10,15 @@
 
 Counter::Counter()
 	:_fileInfo{nullptr}, _currentMultiLineComment{nullptr}
-{
-}
+{}
 
-std::unique_ptr<CountInfo> Counter::count(std::unique_ptr<FileInfo> fileInfo)
+std::unique_ptr<CountInfo> Counter::count(FileInfo* fileInfo)
 {
 	if(fileInfo == nullptr)
 		return nullptr;
 	//reset pointer as it may still be set to something from previous file
 	_currentMultiLineComment = nullptr;
-	_fileInfo = std::move(fileInfo);
+	_fileInfo = fileInfo;
 	auto result{std::make_unique<CountInfo>(_fileInfo->_filePath,  _fileInfo->_languageIdentifier)};
 	if(auto fileHandle = std::ifstream{_fileInfo->_filePath})
 	{
@@ -28,13 +27,12 @@ std::unique_ptr<CountInfo> Counter::count(std::unique_ptr<FileInfo> fileInfo)
 		else
 		{
 			std::string line;
-			while(!fileHandle.eof())
-			{
-				std::getline(fileHandle, line);
+			while(std::getline(fileHandle, line))
 				countLine(std::move(line), &result->_lineInfo);
-			}
-			--result->_lineInfo.blanks;
-			result->_lineInfo.total = result->_lineInfo.blanks + result->_lineInfo.comments +  result->_lineInfo.code;
+			result->_lineInfo.total = 
+				result->_lineInfo.blanks +
+				result->_lineInfo.comments +
+				result->_lineInfo.code;
 		}
 	}
 	return result;

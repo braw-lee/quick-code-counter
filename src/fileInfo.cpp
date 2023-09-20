@@ -4,9 +4,8 @@
 #include <iostream>
 #include <string>
 
-FileInfo::FileInfo(const fs::path& tempFilePath, const LanguageData& languageData)
+FileInfo::FileInfo(const fs::path& tempFilePath)
 	:_filePath{tempFilePath},
-	_languageData{languageData},
 	_languageIdentifier{_languageData.getIdentifier(_filePath)},
 	_fileCommentInfo{_languageData.getCommentInfo(_languageIdentifier)}
 {

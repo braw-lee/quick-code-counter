@@ -18,15 +18,15 @@ int Machine::run(int argc, char** argv)
 	UserInput input = parse(argc,argv);
 	auto filePaths = directoryIterator(input.targetDirectory,input.ignoreThem,input.includeHidden);
 	std::vector<std::unique_ptr<FileInfo>> files;
-	LanguageData languageData;
+	files.reserve(filePaths.size());
 	std::transform
 	(
 		filePaths.begin(),
 		filePaths.end(),
 		std::back_inserter(files),
-		[&languageData](fs::path& filePath)->std::unique_ptr<FileInfo>
+		[](fs::path& filePath)->std::unique_ptr<FileInfo>
 		{
-			return std::make_unique<FileInfo>(filePath, languageData);
+			return std::make_unique<FileInfo>(filePath);
 		}
 	);
 	std::vector<std::unique_ptr<CountInfo>> countInfoPtrs;
@@ -34,7 +34,7 @@ int Machine::run(int argc, char** argv)
 	Counter worker;
 	for(auto& file : files)
 	{
-		auto ptr = worker.count(std::move(file));
+		auto ptr = worker.count(file.get());
 		countInfoPtrs.push_back(std::move(ptr));
 	}
 	if(input.verbose == true)

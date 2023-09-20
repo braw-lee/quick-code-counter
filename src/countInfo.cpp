@@ -1,9 +1,6 @@
 #include "../include/qcc/countInfo.hpp"
 
-#include <memory>
-#include <string>
-
-CountInfo::CountInfo(fs::path filePath, LanguageId id)
+CountInfo::CountInfo(const fs::path& filePath, const LanguageId id)
 	:_filePath{filePath},_languageIdentifier{id}
 {
 }
