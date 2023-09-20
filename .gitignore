@@ -15,4 +15,4 @@ factory/
 tempTest/
 
 #vim swap files
-.swp
+*.swp
