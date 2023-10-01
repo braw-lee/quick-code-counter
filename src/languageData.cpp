@@ -1,13 +1,7 @@
-#include "../include/qcc/languageData.hpp"
+#include "languageData.hpp"
 
-#include <cctype>
-#include <filesystem>
-#include <fstream>
-#include <memory>
-#include <string>
-#include <string_view>
 #include <cassert>
-#include <unordered_map>
+#include <fstream>
 
 std::string getExtension(const fs::path& filePath)
 {

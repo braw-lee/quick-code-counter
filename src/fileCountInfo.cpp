@@ -1,4 +1,4 @@
-#include "../include/qcc/fileCountInfo.hpp"
+#include "fileCountInfo.hpp"
 
 FileCountInfo::FileCountInfo()
 {}

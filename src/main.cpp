@@ -1,4 +1,4 @@
-#include "../include/qcc/machine.hpp"
+#include "machine.hpp"
 
 int main(int argc, char** argv)
 {

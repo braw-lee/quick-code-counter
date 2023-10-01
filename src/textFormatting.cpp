@@ -1,4 +1,4 @@
-#include "../include/qcc/textFormatting.hpp"
+#include "textFormatting.hpp"
 
 std::string padBoth(const std::string& s)
 {

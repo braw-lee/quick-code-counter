@@ -1,4 +1,4 @@
-#include "../include/qcc/directoryIterator.hpp"
+#include "directoryIterator.hpp"
 
 #include <filesystem>
 #include <string_view>

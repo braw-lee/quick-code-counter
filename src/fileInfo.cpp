@@ -1,4 +1,5 @@
-#include "../include/qcc/fileInfo.hpp"
+#include "fileInfo.hpp"
+
 #include <filesystem>
 #include <memory>
 #include <iostream>

@@ -1,4 +1,4 @@
-#include "../include/qcc/counter.hpp"
+#include "counter.hpp"
 
 #include <algorithm>
 #include <cstring>

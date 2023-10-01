@@ -1,4 +1,4 @@
-#include "../include/qcc/lineInfo.hpp"
+#include "lineInfo.hpp"
 
 LineInfo operator+(const LineInfo& first, const LineInfo& second)
 {
