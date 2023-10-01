@@ -22,7 +22,8 @@ enum class LanguageId
 	make_file,
 	markdown,
 	python,
-	unknown
+	unknown,
+	total
 };
 
 constexpr std::string_view idToString(LanguageId id)
@@ -46,6 +47,7 @@ constexpr std::string_view idToString(LanguageId id)
 		case LanguageId::markdown : return "Markdown";
 		case LanguageId::python : return "Python";
 		case LanguageId::unknown : return "Unknown";
+		case LanguageId::total : return "Total";
 		//should never happen
 		default : return "Error";
 	}

@@ -21,9 +21,11 @@ set(
 	src/countInfo.cpp
 	src/fileCountInfo.cpp
 	src/lineInfo.cpp
-	src/result.cpp
+	src/tableLanguageWise.cpp
 	src/textFormatting.cpp
-	src/verboseResult.cpp
+	src/tableVerbose.cpp
+	src/languageWiseData.cpp
+	src/jsonLanguageWise.cpp
 	)
 
 add_executable(
@@ -33,10 +35,11 @@ add_executable(
 add_library(
 		${EXECUTABE}_lib STATIC ${CPP_FILES}
 )
-target_compile_features(${EXECUTABE} PRIVATE cxx_std_17)
+target_compile_features(${EXECUTABE} PRIVATE cxx_std_20)
 target_link_libraries(${EXECUTABE} PUBLIC cxxopts::cxxopts)
 target_link_libraries(${EXECUTABE} PRIVATE nlohmann_json::nlohmann_json)
 
+target_compile_features(${EXECUTABE}_lib PRIVATE cxx_std_20)
 target_link_libraries(${EXECUTABE}_lib PUBLIC cxxopts::cxxopts)
 target_link_libraries(${EXECUTABE}_lib PUBLIC nlohmann_json::nlohmann_json)
 

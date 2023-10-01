@@ -1,10 +1,15 @@
-#include "../include/qcc/machine.hpp"
-#include "../include/qcc/directoryIterator.hpp"
-#include "../include/qcc/countInfo.hpp"
-#include "../include/qcc/counter.hpp"
-#include "../include/qcc/languageData.hpp"
-#include "../include/qcc/result.hpp"
-#include "../include/qcc/verboseResult.hpp"
+#include "machine.hpp"
+#include "directoryIterator.hpp"
+#include "countInfo.hpp"
+#include "counter.hpp"
+#include "languageData.hpp"
+#include "tableLanguageWise.hpp"
+#include "languageWiseData.hpp"
+#include "tableVerbose.hpp"
+#include "userInput.hpp"
+#include "utility.hpp"
+#include "outputFormat.hpp"
+#include "jsonLanguageWise.hpp"
 
 #include <algorithm>
 #include <cxxopts.hpp>
@@ -39,13 +44,30 @@ int Machine::run(int argc, char** argv)
 	}
 	if(input.verbose == true)
 	{
-		VerboseResult output(countInfoPtrs);
-		output.print();
+		if(input.out == OutputFormat::table)
+		{
+			TableVerbose output(countInfoPtrs);
+			output.print();
+		}
+		//TODO
+		else if(input.out == OutputFormat::json)
+			std::cout<< "TODO";
+		else if(input.out == OutputFormat::csv)
+			std::cout<< "TODO";
 	}
 	else
 	{
-		Result output(countInfoPtrs);
-		output.print();
+		LanguageWiseData temp(countInfoPtrs);
+		if(input.out == OutputFormat::table)
+		{
+			TableLanguageWise output(temp.getData());
+			output.print();
+		}
+		else if(input.out == OutputFormat::json)
+			printJsonLanguageWise(temp.getData());
+		//TODO
+		else if(input.out == OutputFormat::csv)
+			std::cout<< "TODO";
 	}
 	return 0;
 }
@@ -59,41 +81,42 @@ UserInput Machine::parse(int argc, char** argv)
 		 "Do not ignore entries starting with .",
 		 cxxopts::value<bool>()->implicit_value("true")->default_value("false")
 		)
-
 		(
 		 "v,verbose",
 		 "Flag to get detailed output",
 		 cxxopts::value<bool>()->implicit_value("true") ->default_value("false")
 		)
-
 		(
 		 "p,path",
 		 "Pass path of target directory",
 		 cxxopts::value<fs::path>()->default_value("./")
 		)
-
-		("e,exclude",
+		(
+		 "e,exclude",
 		 "Pass comma-seperated names of file and directory names that should be ignored",
 		 cxxopts::value<std::vector<std::string>>()->default_value("{}")
 		)
-
+		(
+		 "o,output-format",
+		 "Set output format\nOptions : {}",
+		 cxxopts::value<std::string>()->default_value("table")
+		)
 		(
 		 "h,help",
 		 "Print usage"
 		)
 		;
 	auto result = options.parse(argc,argv);
-
 	if(result.count("help"))
 	{
 		std::cout<<options.help()<<"\n";
 		exit(0);
 	}
-
 	bool ignoreHidden = result["all"].as<bool>();
 	bool detailedOutput = result["verbose"].as<bool>();
 	std::vector<std::string> ignoreThem = result["exclude"].as<std::vector<std::string>>();
 	fs::path targetDirectory = result["path"].as<fs::path>();
-	
-	return {ignoreHidden, detailedOutput, targetDirectory, ignoreThem,};
+	OutputFormat out = stringToOutput(result["output-format"].as<std::string>());
+
+	return {ignoreHidden, detailedOutput, targetDirectory, ignoreThem, out};
 }
