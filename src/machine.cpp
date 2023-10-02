@@ -2,6 +2,7 @@
 #include "directoryIterator.hpp"
 #include "countInfo.hpp"
 #include "counter.hpp"
+#include "jsonVerbose.hpp"
 #include "languageData.hpp"
 #include "tableLanguageWise.hpp"
 #include "languageWiseData.hpp"
@@ -49,9 +50,9 @@ int Machine::run(int argc, char** argv)
 			TableVerbose output(countInfoPtrs);
 			output.print();
 		}
-		//TODO
 		else if(input.out == OutputFormat::json)
-			std::cout<< "TODO";
+			printJsonVerbose(countInfoPtrs);
+		//TODO
 		else if(input.out == OutputFormat::csv)
 			std::cout<< "TODO";
 	}
@@ -98,7 +99,7 @@ UserInput Machine::parse(int argc, char** argv)
 		)
 		(
 		 "o,output-format",
-		 "Set output format\nOptions : {}",
+		 "Set output format\nOptions : {table, json, csv}",
 		 cxxopts::value<std::string>()->default_value("table")
 		)
 		(
