@@ -27,6 +27,8 @@ set(
 	src/languageWiseData.cpp
 	src/jsonLanguageWise.cpp
 	src/jsonVerbose.cpp
+	src/csvLanguageWise.cpp
+	src/csvVerbose.cpp
 	)
 
 add_executable(

@@ -1,4 +1,5 @@
 #include "machine.hpp"
+#include "csvVerbose.hpp"
 #include "directoryIterator.hpp"
 #include "countInfo.hpp"
 #include "counter.hpp"
@@ -11,6 +12,7 @@
 #include "utility.hpp"
 #include "outputFormat.hpp"
 #include "jsonLanguageWise.hpp"
+#include "csvLanguageWise.hpp"
 
 #include <algorithm>
 #include <cxxopts.hpp>
@@ -52,9 +54,8 @@ int Machine::run(int argc, char** argv)
 		}
 		else if(input.out == OutputFormat::json)
 			printJsonVerbose(countInfoPtrs);
-		//TODO
 		else if(input.out == OutputFormat::csv)
-			std::cout<< "TODO";
+			printCsvVerbose(countInfoPtrs);
 	}
 	else
 	{
@@ -66,9 +67,8 @@ int Machine::run(int argc, char** argv)
 		}
 		else if(input.out == OutputFormat::json)
 			printJsonLanguageWise(temp.getData());
-		//TODO
 		else if(input.out == OutputFormat::csv)
-			std::cout<< "TODO";
+			printCsvLanguageWise(temp.getData());
 	}
 	return 0;
 }
@@ -99,7 +99,7 @@ UserInput Machine::parse(int argc, char** argv)
 		)
 		(
 		 "o,output-format",
-		 "Set output format\nOptions : {table, json, csv}",
+		 "Set output format\nOptions : {table, json, csv}\njson format :\ncsv format : language, file count, LOC, commnet, blanks, total, ratio\n",
 		 cxxopts::value<std::string>()->default_value("table")
 		)
 		(
