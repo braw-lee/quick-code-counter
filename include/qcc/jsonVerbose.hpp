@@ -6,6 +6,6 @@
 #include <memory>
 #include <vector>
 
-void printJsonVerbose(const std::vector<std::unique_ptr<CountInfo>>& cip);
+void printJsonVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip);
 
 #endif

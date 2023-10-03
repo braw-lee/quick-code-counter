@@ -6,11 +6,10 @@
 #include <string>
 #include <vector>
 
-struct CommentInfo
-{
-	std::vector<std::string> singleLineComment;
-	std::vector<StringPair> multiLineComment;
-	//std::vector<StringPair> quotes;
+struct CommentInfo {
+  std::vector<std::string> singleLineComment;
+  std::vector<StringPair> multiLineComment;
+  // std::vector<StringPair> quotes;
 };
 
 #endif

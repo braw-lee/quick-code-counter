@@ -6,6 +6,6 @@
 
 #include <map>
 
-void printJsonLanguageWise(const std::map<LanguageId, FileCountInfo>& data);
+void printJsonLanguageWise(const std::map<LanguageId, FileCountInfo> &data);
 
 #endif

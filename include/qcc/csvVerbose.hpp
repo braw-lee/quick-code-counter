@@ -6,6 +6,6 @@
 #include <memory>
 #include <vector>
 
-void printCsvVerbose(const std::vector<std::unique_ptr<CountInfo>>& cip);
+void printCsvVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip);
 
 #endif

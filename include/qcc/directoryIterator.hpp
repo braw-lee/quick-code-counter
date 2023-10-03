@@ -6,6 +6,8 @@
 #include <vector>
 namespace fs = std::filesystem;
 
-std::vector<fs::path> directoryIterator(fs::path& targetDirectory, std::vector<std::string>& ignoreThem, bool ignoreHiddenFiles = false);
+std::vector<fs::path> directoryIterator(fs::path &targetDirectory,
+                                        std::vector<std::string> &ignoreThem,
+                                        bool ignoreHiddenFiles = false);
 
 #endif
