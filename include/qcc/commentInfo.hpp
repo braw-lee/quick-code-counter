@@ -1,5 +1,5 @@
-#ifndef COMMENT_INFO_HPP
-#define COMMENT_INFO_HPP
+#ifndef QCC_COMMENTINFO_HPP
+#define QCC_COMMENTINFO_HPP
 
 #include "utility.hpp"
 

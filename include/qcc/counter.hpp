@@ -1,5 +1,5 @@
-#ifndef COUNTER_HPP
-#define COUNTER_HPP
+#ifndef QCC_COUNTER_HPP
+#define QCC_COUNTER_HPP
 
 #include "fileInfo.hpp"
 #include "countInfo.hpp"

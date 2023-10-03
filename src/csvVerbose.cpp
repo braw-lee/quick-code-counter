@@ -1,7 +1,7 @@
 #include "csvVerbose.hpp"
 
-#include <string>
 #include <iostream>
+#include <string>
 
 void printCsvVerbose(const std::vector<std::unique_ptr<CountInfo>>& cip)
 {

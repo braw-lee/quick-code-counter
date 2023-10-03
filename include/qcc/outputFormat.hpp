@@ -1,5 +1,5 @@
-#ifndef OUTPUT_FORMAT_HPP
-#define OUTPUT_FORMAT_HPP
+#ifndef QCC_OUTPUTFORMAT_HPP
+#define QCC_OUTPUTFORMAT_HPP
 
 #include <string_view>
 

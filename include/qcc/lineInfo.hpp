@@ -1,5 +1,5 @@
-#ifndef LINE_INFO_HPP
-#define LINE_INFO_HPP
+#ifndef QCC_LINEINFO_HPP
+#define QCC_LINEINFO_HPP
 
 #include <cstddef>
 

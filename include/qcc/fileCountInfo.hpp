@@ -1,5 +1,5 @@
-#ifndef FILE_COUNT_INFO_HPP
-#define FILE_COUNT_INFO_HPP
+#ifndef QCC_FILECOUNTINFO_HPP
+#define QCC_FILECOUNTINFO_HPP
 
 #include "lineInfo.hpp"
 #include "countInfo.hpp"

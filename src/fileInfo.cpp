@@ -1,8 +1,8 @@
 #include "fileInfo.hpp"
 
 #include <filesystem>
-#include <memory>
 #include <iostream>
+#include <memory>
 #include <string>
 
 FileInfo::FileInfo(const fs::path& tempFilePath)

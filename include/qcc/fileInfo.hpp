@@ -1,10 +1,10 @@
-#ifndef FILE_INFO
-#define FILE_INFO
+#ifndef QCC_FILEINFO_HPP
+#define QCC_FILEINFO_HPP
 
 #include "commentInfo.hpp"
 #include "languageData.hpp"
-#include "lineInfo.hpp"
 #include "languageId.hpp"
+#include "lineInfo.hpp"
 
 #include <filesystem>
 #include <memory>

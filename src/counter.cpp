@@ -74,8 +74,7 @@ bool Counter::isEmpty(const std::string& line)
 {
 	if(line.size() == 0)
 		return true;
-	else
-		return false;
+	return false;
 }
 
 bool Counter::isSingleLineComment(const std::string& line)
@@ -96,23 +95,19 @@ std::string Counter::trimComments(const std::string& line)
 		auto remainingLine = line.substr(commentEndIndex); 
 		return trimComments(remainingLine);
 	}
-	else
-	{
-		if(isSingleLineComment(line))
-			return "";
-		size_t commentStartIndex {searchCommentStartIndex(line)};
-		size_t commentEndIndex;
-		if(commentStartIndex == std::string::npos)
-			return line;
-		else
-			commentEndIndex = searchCommentEndIndex(line, commentStartIndex);
-		auto firstPart = line.substr(0,commentStartIndex);
-		if(commentEndIndex == std::string::npos)
-			return firstPart;
-		auto remainingLine = line.substr(commentEndIndex); 
-		auto secondPart = trimComments(remainingLine);
-		return firstPart + secondPart;
-	}
+	if(isSingleLineComment(line))
+		return "";
+	size_t commentStartIndex {searchCommentStartIndex(line)};
+	size_t commentEndIndex;
+	if(commentStartIndex == std::string::npos)
+		return line;
+	commentEndIndex = searchCommentEndIndex(line, commentStartIndex);
+	auto firstPart = line.substr(0,commentStartIndex);
+	if(commentEndIndex == std::string::npos)
+		return firstPart;
+	auto remainingLine = line.substr(commentEndIndex); 
+	auto secondPart = trimComments(remainingLine);
+	return firstPart + secondPart;
 }
 
 size_t Counter::searchCommentStartIndex(const std::string& line)

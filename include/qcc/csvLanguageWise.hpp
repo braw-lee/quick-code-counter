@@ -1,5 +1,5 @@
-#ifndef CSV_LANGUGAGE_WISE_HPP
-#define CSV_LANGUGAGE_WISE_HPP
+#ifndef QCC_CSVLANGUAGEWISE_HPP
+#define QCC_CSVLANGUAGEWISE_HPP
 
 #include "languageId.hpp"
 #include "fileCountInfo.hpp"

@@ -1,8 +1,8 @@
-#include "../include/qcc/directoryIterator.hpp"
+#include "directoryIterator.hpp"
 
+#include <gtest/gtest.h>
 #include <algorithm>
 #include <filesystem>
-#include <gtest/gtest.h>
 #include <string>
 #include <vector>
 

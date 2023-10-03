@@ -1,11 +1,11 @@
-#ifndef USER_INPUT_HPP
-#define USER_INPUT_HPP
+#ifndef QCC_USERINPUT_HPP
+#define QCC_USERINPUT_HPP
 
 #include "outputFormat.hpp"
 
 #include <filesystem>
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace fs = std::filesystem;
 

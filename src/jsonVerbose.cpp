@@ -1,8 +1,8 @@
 #include "jsonVerbose.hpp"
 #include "languageId.hpp"
 
-#include <nlohmann/json.hpp>
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 void printJsonVerbose(const std::vector<std::unique_ptr<CountInfo>>& cip)
 {

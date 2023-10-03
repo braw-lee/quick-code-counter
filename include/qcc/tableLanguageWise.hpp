@@ -1,13 +1,13 @@
-#ifndef TLW_HPP
-#define TLW_HPP
+#ifndef QCC_TABLELANGUAGEWISE_HPP
+#define QCC_TABLELANGUAGEWISE_HPP
 
 #include "fileCountInfo.hpp"
 #include "countInfo.hpp"
 #include "languageId.hpp"
 #include "utility.hpp"
 
-#include <map>
 #include <array>
+#include <map>
 #include <memory>
 #include <string>
 

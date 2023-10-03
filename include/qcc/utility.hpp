@@ -1,5 +1,5 @@
-#ifndef UTILITY_HPP
-#define UTILITY_HPP
+#ifndef QCC_UTILITY_HPP
+#define QCC_UTILITY_HPP
 
 #include "languageWiseData.hpp"
 

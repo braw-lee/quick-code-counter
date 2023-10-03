@@ -1,25 +1,25 @@
 #include "machine.hpp"
-#include "csvVerbose.hpp"
-#include "directoryIterator.hpp"
 #include "countInfo.hpp"
 #include "counter.hpp"
+#include "csvLanguageWise.hpp"
+#include "csvVerbose.hpp"
+#include "directoryIterator.hpp"
+#include "jsonLanguageWise.hpp"
 #include "jsonVerbose.hpp"
 #include "languageData.hpp"
-#include "tableLanguageWise.hpp"
 #include "languageWiseData.hpp"
+#include "outputFormat.hpp"
+#include "tableLanguageWise.hpp"
 #include "tableVerbose.hpp"
 #include "userInput.hpp"
 #include "utility.hpp"
-#include "outputFormat.hpp"
-#include "jsonLanguageWise.hpp"
-#include "csvLanguageWise.hpp"
 
 #include <algorithm>
 #include <cxxopts.hpp>
 #include <filesystem>
+#include <iostream>
 #include <memory>
 #include <vector>
-#include <iostream>
 
 int Machine::run(int argc, char** argv)
 {

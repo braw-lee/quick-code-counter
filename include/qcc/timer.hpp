@@ -1,5 +1,5 @@
-#ifndef TIMER_HPP
-#define TIMER_HPP
+#ifndef QCC_TIMER_HPP
+#define QCC_TIMER_HPP
 
 #include <chrono>
 

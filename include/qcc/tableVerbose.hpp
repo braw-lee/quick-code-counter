@@ -1,5 +1,5 @@
-#ifndef TABLE_VERBOSE_HPP
-#define TABLE_VERBOSE_HPP
+#ifndef QCC_TABLEVERBOSE_HPP
+#define QCC_TABLEVERBOSE_HPP
 
 #include "countInfo.hpp"
 #include "utility.hpp"

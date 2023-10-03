@@ -1,5 +1,5 @@
-#ifndef COUNT_INFO_HPP
-#define COUNT_INFO_HPP
+#ifndef QCC_COUNTINFO_HPP
+#define QCC_COUNTINFO_HPP
 
 #include "lineInfo.hpp"
 #include "languageId.hpp"

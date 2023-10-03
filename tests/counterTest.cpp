@@ -1,7 +1,7 @@
-#include "../include/qcc/counter.hpp"
+#include "counter.hpp"
 
-#include <filesystem>
 #include <gtest/gtest.h>
+#include <filesystem>
 #include <memory>
 
 class CounterTest : public ::testing::Test

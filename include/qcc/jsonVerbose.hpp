@@ -1,5 +1,5 @@
-#ifndef JSON_VERBOSE_HPP
-#define JSON_VERBOSE_HPP
+#ifndef QCC_JSONVERBOSE_HPP
+#define QCC_JSONVERBOSE_HPP
 
 #include "countInfo.hpp"
 

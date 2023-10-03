@@ -1,13 +1,13 @@
 #include "tableVerbose.hpp"
-#include "textFormatting.hpp"
 #include "languageId.hpp"
+#include "textFormatting.hpp"
 #include "utility.hpp"
 
 #include <array>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
-#include <iostream>
 
 using enum VerboseCellName;
 

@@ -1,13 +1,13 @@
-#ifndef LWD_HPP
-#define LWD_HPP
+#ifndef QCC_LANGUAGEWISEDATA_HPP
+#define QCC_LANGUAGEWISEDATA_HPP
 
 #include "countInfo.hpp"
 #include "fileCountInfo.hpp"
 #include "languageId.hpp"
 
+#include <map>
 #include <memory>
 #include <vector>
-#include <map>
 
 class LanguageWiseData
 {

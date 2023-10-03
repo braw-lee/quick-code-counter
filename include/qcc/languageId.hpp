@@ -1,5 +1,5 @@
-#ifndef LANGUAGE_ID
-#define LANGUAGE_ID
+#ifndef QCC_LANGUAGEID_HPP
+#define QCC_LANGUAGEID_HPP
 
 #include <ostream>
 #include <string_view>

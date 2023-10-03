@@ -1,5 +1,5 @@
-#ifndef MACHINE_HPP
-#define MACHINE_HPP
+#ifndef QCC_MACHINE_HPP
+#define QCC_MACHINE_HPP
 
 #include "userInput.hpp"
 

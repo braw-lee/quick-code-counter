@@ -1,5 +1,5 @@
-#ifndef TEXT_FORMATTING_HPP
-#define TEXT_FORMATTING_HPP
+#ifndef QCC_TEXTFORMATTING_HPP
+#define QCC_TEXTFORMATTING_HPP
 
 #include <string>
 

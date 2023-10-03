@@ -1,12 +1,12 @@
 #include "directoryIterator.hpp"
 
-#include <filesystem>
-#include <string_view>
-#include <vector>
-#include <queue>
 #include <algorithm>
+#include <filesystem>
 #include <iostream>
+#include <queue>
+#include <string_view>
 #include <utility>
+#include <vector>
 
 std::vector<fs::path> directoryIterator(fs::path& targetDirectory, std::vector<std::string>& ignoreThem, bool includeHidden)
 {
@@ -18,7 +18,7 @@ std::vector<fs::path> directoryIterator(fs::path& targetDirectory, std::vector<s
 	}
 
 	//if path is to a file, return single file path
-	else if(!fs::is_directory(targetDirectory))
+	if(!fs::is_directory(targetDirectory))
 		return {targetDirectory};
 
 	std::vector<fs::path> result;
@@ -43,11 +43,9 @@ std::vector<fs::path> directoryIterator(fs::path& targetDirectory, std::vector<s
 				it.disable_recursion_pending();
 			continue;
 		}
-		else
-		{
-			if(!it->is_directory())
-				result.push_back(std::move(it->path()));
-		}		
+		if(!it->is_directory())
+			result.push_back(std::move(it->path()));
+			
 	}
 	//return the vector of fs::path of found files
 	return result;
