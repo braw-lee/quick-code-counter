@@ -8,7 +8,6 @@ struct FileCountInfo
 {
 	size_t _fileCount{};
 	LineInfo _lineInfo{};
-	double _ratio{};
 
 	FileCountInfo();
 	FileCountInfo(CountInfo* ci);
