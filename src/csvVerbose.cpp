@@ -4,7 +4,7 @@
 #include <string>
 
 void printCsvVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip) {
-  std::string s;
+  std::string s{"file,language,code,comments,blanks,total\n"};
   for (auto &it : cip) {
     s += std::string{it->_filePath} + ',' +
          std::string{idToString(it->_languageIdentifier)} + ',' +

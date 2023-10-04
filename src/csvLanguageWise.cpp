@@ -5,7 +5,7 @@
 #include <string>
 
 void printCsvLanguageWise(const std::map<LanguageId, FileCountInfo> &data) {
-  std::string s;
+  std::string s{"language,file count,code,comments,blanks,total,ratio\n"};
   for (auto &it : data) {
     s += std::string{idToString(it.first)} + ',' +
          std::to_string(it.second._fileCount) + ',' +
