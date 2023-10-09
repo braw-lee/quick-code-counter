@@ -42,13 +42,11 @@ int Machine::run(int argc, char **argv) {
     if (input.out == OutputFormat::table) {
       TableVerbose output(countInfoPtrs);
       output.print();
-    }
-	else if (input.out == OutputFormat::json)
+    } else if (input.out == OutputFormat::json)
       printJsonVerbose(countInfoPtrs);
     else if (input.out == OutputFormat::csv)
       printCsvVerbose(countInfoPtrs);
-  }
-  else {
+  } else {
     LanguageWiseData temp(countInfoPtrs);
     if (input.out == OutputFormat::table) {
       TableLanguageWise output(temp.getData());

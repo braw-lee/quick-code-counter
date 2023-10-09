@@ -82,7 +82,7 @@ private:
       {LanguageId::json, noCommentStyle},
       {LanguageId::make_file, shellStyle},
       {LanguageId::markdown, noCommentStyle},
-      {LanguageId::python, {{"#"}, {{"'''", "'''"}, {"\"\"\"", "\"\"\""}}}}};
+      {LanguageId::python, {{"#"}, {{"'''", "'''"}, {R"(""")", R"(""")"}}}}};
 
 public:
   LanguageId getIdentifier(const fs::path &filePath) const;

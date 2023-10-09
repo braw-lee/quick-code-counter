@@ -53,8 +53,8 @@ void Counter::countLine(std::string line, LineInfo *lineInfo) {
 
 std::string Counter::trimLeadingWhiteSpace(const std::string &line) {
   int spaceIndex{};
-  for (size_t i = 0; i < line.size(); i++) {
-    if (!std::isspace(line[i]))
+  for (char i : line) {
+    if (!std::isspace(i))
       break;
     spaceIndex++;
   }
@@ -68,7 +68,7 @@ bool Counter::isEmpty(const std::string &line) {
 }
 
 bool Counter::isSingleLineComment(const std::string &line) {
-  for (auto it : _fileInfo->_fileCommentInfo->singleLineComment)
+  for (const auto &it : _fileInfo->_fileCommentInfo->singleLineComment)
     if (line.size() >= it.size() && line.substr(0, it.size()) == it)
       return true;
   return false;

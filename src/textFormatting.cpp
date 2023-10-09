@@ -10,9 +10,9 @@ void fillCell(std::string &cell, size_t cellSize, bool alignLeft) {
   size_t currCellSize = cell.size();
   while (currCellSize != cellSize) {
     if (alignLeft)
-      cell = cell + " ";
+      cell += ' ';
     else
-      cell = " " + cell;
+      cell.insert(0, 1, ' ');
     currCellSize = cell.size();
   }
 }

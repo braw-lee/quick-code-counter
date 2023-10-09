@@ -18,6 +18,6 @@ struct FileInfo {
   LanguageId _languageIdentifier;
   std::shared_ptr<CommentInfo> _fileCommentInfo;
 
-  FileInfo(const fs::path &filePath);
+  FileInfo(fs::path filePath);
 };
 #endif

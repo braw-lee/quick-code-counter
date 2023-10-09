@@ -8,7 +8,7 @@ struct FileCountInfo {
   size_t _fileCount{};
   LineInfo _lineInfo{};
 
-  FileCountInfo();
+  FileCountInfo() = default;
   FileCountInfo(CountInfo *ci);
 };
 

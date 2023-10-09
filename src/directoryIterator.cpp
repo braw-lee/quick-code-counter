@@ -42,7 +42,7 @@ std::vector<fs::path> directoryIterator(fs::path &targetDirectory,
       continue;
     }
     if (!it->is_directory())
-      result.push_back(std::move(it->path()));
+      result.push_back(it->path());
   }
   // return the vector of fs::path of found files
   return result;
