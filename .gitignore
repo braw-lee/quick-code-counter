@@ -16,3 +16,6 @@ tempTest/
 
 #vim swap files
 *.swp
+
+#qcc generated files (csv, json)
+generatedFiles

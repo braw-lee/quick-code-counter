@@ -6,6 +6,6 @@
 
 #include <map>
 
-void printCsvLanguageWise(const std::map<LanguageId, FileCountInfo> &data);
+std::string getCsvLanguageWise(const std::map<LanguageId, FileCountInfo> &data);
 
 #endif

@@ -5,7 +5,9 @@
 #include "languageId.hpp"
 
 #include <map>
+#include <string>
 
-void printJsonLanguageWise(const std::map<LanguageId, FileCountInfo> &data);
+std::string
+getJsonLanguageWise(const std::map<LanguageId, FileCountInfo> &data);
 
 #endif

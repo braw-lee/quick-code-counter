@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-void printCsvVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip) {
+std::string getCsvVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip) {
   std::string s{"file,language,code,comments,blanks,total\n"};
   for (auto &it : cip) {
     s += std::string{it->_filePath} + ',' +
@@ -13,5 +13,5 @@ void printCsvVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip) {
          std::to_string(it->_lineInfo.blanks) + ',' +
          std::to_string(it->_lineInfo.total) + '\n';
   }
-  std::cout << s;
+  return s;
 }

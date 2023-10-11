@@ -1,4 +1,5 @@
 #include "machine.hpp"
+#include "barChart.hpp"
 #include "countInfo.hpp"
 #include "counter.hpp"
 #include "csvLanguageWise.hpp"
@@ -39,22 +40,27 @@ int Machine::run(int argc, char **argv) {
     countInfoPtrs.push_back(std::move(ptr));
   }
   if (input.verbose == true) {
-    if (input.out == OutputFormat::table) {
+    if (input.outputFormat == OutputFormat::table) {
       TableVerbose output(countInfoPtrs);
       output.print();
-    } else if (input.out == OutputFormat::json)
-      printJsonVerbose(countInfoPtrs);
-    else if (input.out == OutputFormat::csv)
-      printCsvVerbose(countInfoPtrs);
+    } else if (input.outputFormat == OutputFormat::json)
+      std::cout << getJsonVerbose(countInfoPtrs);
+    else if (input.outputFormat == OutputFormat::csv)
+      std::cout << getCsvVerbose(countInfoPtrs);
+    else
+      std::cerr
+          << "Error : Verbose output does not support given output format";
   } else {
     LanguageWiseData temp(countInfoPtrs);
-    if (input.out == OutputFormat::table) {
+    if (input.outputFormat == OutputFormat::table) {
       TableLanguageWise output(temp.getData());
       output.print();
-    } else if (input.out == OutputFormat::json)
-      printJsonLanguageWise(temp.getData());
-    else if (input.out == OutputFormat::csv)
-      printCsvLanguageWise(temp.getData());
+    } else if (input.outputFormat == OutputFormat::json)
+      std::cout << getJsonLanguageWise(temp.getData());
+    else if (input.outputFormat == OutputFormat::csv)
+      std::cout << getCsvLanguageWise(temp.getData());
+    else if (input.outputFormat == OutputFormat::bar)
+      generateBarChart(temp.getData());
   }
   return 0;
 }
@@ -74,7 +80,8 @@ UserInput Machine::parse(int argc, char **argv) {
       "ignored",
       cxxopts::value<std::vector<std::string>>()->default_value("{}"))(
       "o,output-format",
-      "Set output format\nOptions : {table, json, csv}\njson format :\ncsv "
+      "Set output format\nOptions : {table, json, csv, bar}\njson format "
+      ":\ncsv "
       "format : language, file count, LOC, commnet, blanks, total, ratio\n",
       cxxopts::value<std::string>()->default_value("table"))("h,help",
                                                              "Print usage");

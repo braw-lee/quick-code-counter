@@ -14,7 +14,7 @@ struct UserInput {
   bool verbose;
   fs::path targetDirectory;
   std::vector<std::string> ignoreThem;
-  OutputFormat out;
+  OutputFormat outputFormat;
 };
 
 #endif

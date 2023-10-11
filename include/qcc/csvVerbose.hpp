@@ -4,8 +4,9 @@
 #include "countInfo.hpp"
 
 #include <memory>
+#include <string>
 #include <vector>
 
-void printCsvVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip);
+std::string getCsvVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip);
 
 #endif

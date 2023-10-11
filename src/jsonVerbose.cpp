@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <string>
 
-void printJsonVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip) {
+std::string getJsonVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip) {
   nlohmann::json j;
   for (auto &it : cip) {
     j.push_back({{"File", it->_filePath},
@@ -14,5 +15,5 @@ void printJsonVerbose(const std::vector<std::unique_ptr<CountInfo>> &cip) {
                  {"Blanks", it->_lineInfo.blanks},
                  {"Total", it->_lineInfo.total}});
   }
-  std::cout << j.dump(4);
+  return j.dump(4);
 }

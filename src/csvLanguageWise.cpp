@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-void printCsvLanguageWise(const std::map<LanguageId, FileCountInfo> &data) {
+std::string
+getCsvLanguageWise(const std::map<LanguageId, FileCountInfo> &data) {
   std::string s{"language,file count,code,comments,blanks,total,ratio\n"};
   for (auto &it : data) {
     s += std::string{idToString(it.first)} + ',' +
@@ -17,5 +18,5 @@ void printCsvLanguageWise(const std::map<LanguageId, FileCountInfo> &data) {
                         data.at(LanguageId::total)._lineInfo.total) +
          '\n';
   }
-  std::cout << s;
+  return s;
 }
