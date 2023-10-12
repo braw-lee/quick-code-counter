@@ -1,8 +1,9 @@
 # type: ignore
+import sys
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import sys
 
 
 def loadCsvData(argv):
@@ -19,30 +20,22 @@ def loadCsvData(argv):
 if __name__ == '__main__':
     plt.style.use("seaborn-v0_8-poster")
 
+    # set load csv file
     data = loadCsvData(sys.argv)
+    # use pandas.DataFrame for easier graph plotting
     df = pd.DataFrame(data)
-
-    Y_axis = np.arange(len(df))
-
-    # set bar height
-    height = 0.2
-
-    # plot comments bars
-    plt.barh(y=Y_axis - height, width=df["comments"],
-             color='red', height=height, label="Comments", linewidth=2, edgecolor='b')
-    # plot LOC bars
-    plt.barh(y=Y_axis, width=df["code"], color='cyan',
-             height=height, label="LOC", linewidth=2, edgecolor='b')
-    # plot blanks bars
-    plt.barh(y=Y_axis + height, width=df["blanks"],
-             color='purple', height=height, label="Blanks", linewidth=2, edgecolor='b')
-
-    # set labels for y axis
-    plt.yticks(ticks=Y_axis, labels=df["language"])
-    plt.title('QCC Data')
+    ax = df.plot.bar(y=['comments', 'code', 'blanks'],
+                     color=['purple', 'cyan', 'red'], linewidth=2, edgecolor='b', rot=45)
+    plt.legend(['Comments', 'LOC', 'Blanks'])
     plt.xlabel('Languages')
     plt.ylabel('Lines')
-    plt.legend()
-    plt.autoscale(enable=True, axis='y', tight=True)  # tight layout
 
+    for container in ax.containers:
+        ax.bar_label(container, label_type='edge')
+
+    # set labels for x axis
+    x_axis = np.arange(len(df))
+    plt.xticks(ticks=x_axis, labels=df["language"])
+
+    plt.tight_layout()
     plt.show()
