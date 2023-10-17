@@ -1,5 +1,5 @@
 #include "machine.hpp"
-#include "barChart.hpp"
+#include "chartHandler.hpp"
 #include "countInfo.hpp"
 #include "counter.hpp"
 #include "csvLanguageWise.hpp"
@@ -59,8 +59,11 @@ int Machine::run(int argc, char **argv) {
       std::cout << getJsonLanguageWise(temp.getData());
     else if (input.outputFormat == OutputFormat::csv)
       std::cout << getCsvLanguageWise(temp.getData());
-    else if (input.outputFormat == OutputFormat::bar)
-      generateBarChart(temp.getData());
+    else if (input.outputFormat == OutputFormat::bar) {
+      ChartHandler::generateBarChart(temp.getData());
+    } else if (input.outputFormat == OutputFormat::pie) {
+      ChartHandler::generatePieChart(temp.getData());
+    }
   }
   return 0;
 }

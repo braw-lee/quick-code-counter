@@ -28,7 +28,7 @@ set(CPP_FILES
     src/jsonVerbose.cpp
     src/csvLanguageWise.cpp
     src/csvVerbose.cpp
-    src/barChart.cpp)
+    src/chartHandler.cpp)
 
 add_executable(${EXECUTABE} ${CPP_FILES})
 add_library(${EXECUTABE}_lib STATIC ${CPP_FILES})

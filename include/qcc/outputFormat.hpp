@@ -3,7 +3,7 @@
 
 #include <string_view>
 
-enum class OutputFormat { table, json, csv, bar };
+enum class OutputFormat { table, json, csv, bar, pie };
 
 constexpr OutputFormat stringToOutput(std::string_view s) noexcept {
   if (s == "json")
@@ -12,6 +12,8 @@ constexpr OutputFormat stringToOutput(std::string_view s) noexcept {
     return OutputFormat::csv;
   if (s == "bar")
     return OutputFormat::bar;
+  if (s == "pie")
+    return OutputFormat::pie;
   return OutputFormat::table;
 }
 
