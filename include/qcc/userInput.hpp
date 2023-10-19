@@ -11,7 +11,6 @@ namespace fs = std::filesystem;
 
 struct UserInput {
   bool includeHidden;
-  bool verbose;
   fs::path targetDirectory;
   std::vector<std::string> ignoreThem;
   OutputFormat outputFormat;

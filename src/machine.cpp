@@ -39,32 +39,7 @@ int Machine::run(int argc, char **argv) {
     auto ptr = worker.count(file.get());
     countInfoPtrs.push_back(std::move(ptr));
   }
-  if (input.verbose == true) {
-    if (input.outputFormat == OutputFormat::table) {
-      TableVerbose output(countInfoPtrs);
-      output.print();
-    } else if (input.outputFormat == OutputFormat::json)
-      std::cout << getJsonVerbose(countInfoPtrs);
-    else if (input.outputFormat == OutputFormat::csv)
-      std::cout << getCsvVerbose(countInfoPtrs);
-    else
-      std::cerr
-          << "Error : Verbose output does not support given output format";
-  } else {
-    LanguageWiseData temp(countInfoPtrs);
-    if (input.outputFormat == OutputFormat::table) {
-      TableLanguageWise output(temp.getData());
-      output.print();
-    } else if (input.outputFormat == OutputFormat::json)
-      std::cout << getJsonLanguageWise(temp.getData());
-    else if (input.outputFormat == OutputFormat::csv)
-      std::cout << getCsvLanguageWise(temp.getData());
-    else if (input.outputFormat == OutputFormat::bar) {
-      ChartHandler::generateBarChart(temp.getData());
-    } else if (input.outputFormat == OutputFormat::pie) {
-      ChartHandler::generatePieChart(temp.getData());
-    }
-  }
+  generateOutput(input.outputFormat, countInfoPtrs);
   return 0;
 }
 
@@ -94,11 +69,59 @@ UserInput Machine::parse(int argc, char **argv) {
     exit(0);
   }
   bool ignoreHidden = result["all"].as<bool>();
-  bool detailedOutput = result["verbose"].as<bool>();
   std::vector<std::string> ignoreThem =
       result["exclude"].as<std::vector<std::string>>();
   fs::path targetDirectory = result["path"].as<fs::path>();
   OutputFormat out = stringToOutput(result["output-format"].as<std::string>());
 
-  return {ignoreHidden, detailedOutput, targetDirectory, ignoreThem, out};
+  return {ignoreHidden, targetDirectory, ignoreThem, out};
+}
+
+void Machine::generateOutput(
+    OutputFormat of, std::vector<std::unique_ptr<CountInfo>> &countInfoPtrs) {
+  switch (of) {
+  case OutputFormat::vtable: {
+    TableVerbose output{countInfoPtrs};
+    output.print();
+    break;
+  }
+  case OutputFormat::vjson: {
+    std::cout << getJsonVerbose(countInfoPtrs);
+    break;
+  }
+  case OutputFormat::vcsv: {
+    std::cout << getCsvVerbose(countInfoPtrs);
+    break;
+  }
+  default: {
+    LanguageWiseData languageWiseData{countInfoPtrs};
+    switch (of) {
+    case OutputFormat::table: {
+      TableLanguageWise output(languageWiseData.getData());
+      output.print();
+      break;
+    }
+    case OutputFormat::json: {
+      std::cout << getJsonLanguageWise(languageWiseData.getData());
+      break;
+    }
+    case OutputFormat::csv: {
+      std::cout << getCsvLanguageWise(languageWiseData.getData());
+      break;
+    }
+    case OutputFormat::bar: {
+      ChartHandler::generateBarChart(languageWiseData.getData());
+      break;
+    }
+    case OutputFormat::pie: {
+      ChartHandler::generatePieChart(languageWiseData.getData());
+      break;
+    }
+    default:
+      std::cerr << "Should never execute";
+      break;
+    }
+    break;
+  }
+  }
 }
