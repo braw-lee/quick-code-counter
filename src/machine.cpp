@@ -49,18 +49,18 @@ UserInput Machine::parse(int argc, char **argv) {
   options.add_options()(
       "a,all", "Do not ignore entries starting with .",
       cxxopts::value<bool>()->implicit_value("true")->default_value("false"))(
-      "v,verbose", "Flag to get detailed output",
-      cxxopts::value<bool>()->implicit_value("true")->default_value("false"))(
       "p,path", "Pass path of target directory",
       cxxopts::value<fs::path>()->default_value("./"))(
       "e,exclude",
-      "Pass comma-seperated names of file and directory names that should be "
+      "Pass comma-seperated names of file and directory names that should "
+      "be "
       "ignored",
       cxxopts::value<std::vector<std::string>>()->default_value("{}"))(
       "o,output-format",
-      "Set output format\nOptions : {table, json, csv, bar}\njson format "
-      ":\ncsv "
-      "format : language, file count, LOC, commnet, blanks, total, ratio\n",
+      "Set output format\nOptions : \n{table, vtable, "
+      "json, vjson, csv, vcsv, "
+      "bar, pie}\nOptions prefixed with `v` produces verbose output, i.e file "
+      "by file",
       cxxopts::value<std::string>()->default_value("table"))("h,help",
                                                              "Print usage");
   auto result = options.parse(argc, argv);
