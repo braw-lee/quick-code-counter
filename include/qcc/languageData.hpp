@@ -13,6 +13,10 @@
 namespace fs = std::filesystem;
 
 class LanguageData {
+public:
+  LanguageId getIdentifier(const fs::path &filePath) const;
+  std::shared_ptr<CommentInfo> getCommentInfo(LanguageId id) const;
+
 private:
   CommentInfo cStyle{
       {"//"},
@@ -21,6 +25,7 @@ private:
   CommentInfo shellStyle{{"#"}, {}};
   CommentInfo htmlStyle{{}, {{"<!--", "-->"}}};
   CommentInfo noCommentStyle{{}, {}};
+  // map file extensions to language
   const std::unordered_map<std::string, LanguageId> _extensionMap{
       {"sh", LanguageId::bourne_shell},
 
@@ -52,13 +57,17 @@ private:
 
       {"py", LanguageId::python}};
 
+  // map unique file names to language
   const std::unordered_map<std::string, LanguageId> _fileNameMap{
       {"CMakeLists.txt", LanguageId::cmake},
       {".gitignore", LanguageId::git},
       {".gitattributes", LanguageId::git},
       {".gitmodules", LanguageId::git},
-      {"Makefile", LanguageId::make_file}};
+      {"Makefile", LanguageId::make_file},
+      {"makefile", LanguageId::make_file},
+      {"GNUmakefile", LanguageId::make_file}};
 
+  // map shebangs to language
   const std::unordered_map<std::string, LanguageId> _shebangMap{
       {"sh", LanguageId::bourne_shell},
       {"bash", LanguageId::bourne_shell},
@@ -66,6 +75,7 @@ private:
       {"python2", LanguageId::python},
       {"python3", LanguageId::python}};
 
+  // map language to commentInfo
   const std::unordered_map<LanguageId, CommentInfo> _languageMap{
       {LanguageId::bourne_shell, shellStyle},
       {LanguageId::c_header, cStyle},
@@ -84,9 +94,6 @@ private:
       {LanguageId::markdown, noCommentStyle},
       {LanguageId::python, {{"#"}, {{"'''", "'''"}, {R"(""")", R"(""")"}}}}};
 
-public:
-  LanguageId getIdentifier(const fs::path &filePath) const;
-  std::shared_ptr<CommentInfo> getCommentInfo(LanguageId id) const;
   std::string getShebang(const fs::path &filePath) const;
 };
 
