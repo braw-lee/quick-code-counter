@@ -4,7 +4,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(GTest CONFIG REQUIRED)
 enable_testing()
 
-add_executable(test_qcc ./directoryIteratorTest.cpp ./counterTest.cpp)
+add_executable(test_qcc directoryIteratorTest.cpp counterTest.cpp
+                        getLanguageIdTest.cpp)
 target_link_libraries(
   test_qcc
   PRIVATE GTest::gtest_main
