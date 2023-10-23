@@ -27,23 +27,33 @@ private:
   CommentInfo noCommentStyle{{}, {}};
   // map file extensions to language
   const std::unordered_map<std::string, LanguageId> _extensionMap{
+      {"asm", LanguageId::assembly},    {"s", LanguageId::assembly},
+      {"inc", LanguageId::assembly},    {"wla", LanguageId::assembly},
+      {"SRC", LanguageId::assembly},
+
       {"sh", LanguageId::bourne_shell},
+
+      {"cs", LanguageId::c_sharp},      {"csx", LanguageId::c_sharp},
 
       {"h", LanguageId::c_header},
 
       {"c", LanguageId::c_source},
 
-      {"hh", LanguageId::cpp_header},   {"hpp", LanguageId::cpp_header},
-      {"hxx", LanguageId::cpp_header},
+      {"H", LanguageId::cpp_header},    {"hh", LanguageId::cpp_header},
+      {"hpp", LanguageId::cpp_header},  {"hxx", LanguageId::cpp_header},
+      {"h++", LanguageId::cpp_header},
 
-      {"cc", LanguageId::cpp_source},   {"cpp", LanguageId::cpp_source},
-      {"cxx", LanguageId::cpp_source},  {"c++", LanguageId::cpp_source},
+      {"C", LanguageId::cpp_source},    {"cc", LanguageId::cpp_source},
+      {"cpp", LanguageId::cpp_source},  {"cxx", LanguageId::cpp_source},
+      {"c++", LanguageId::cpp_source},
 
       {"cmake", LanguageId::cmake},
 
       {"css", LanguageId::css},
 
       {"go", LanguageId::go},
+
+      {"hs", LanguageId::haskell},      {"lhs", LanguageId::haskell},
 
       {"html", LanguageId::html},       {"htm", LanguageId::html},
 
@@ -55,7 +65,9 @@ private:
 
       {"md", LanguageId::markdown},     {"markdown", LanguageId::markdown},
 
-      {"py", LanguageId::python}};
+      {"py", LanguageId::python},
+
+      {"zig", LanguageId::zig},         {"zir", LanguageId::zig}};
 
   // map unique file names to language
   const std::unordered_map<std::string, LanguageId> _fileNameMap{
@@ -77,7 +89,9 @@ private:
 
   // map language to commentInfo
   const std::unordered_map<LanguageId, CommentInfo> _languageMap{
+      {LanguageId::assembly, {{";"}, {}}},
       {LanguageId::bourne_shell, shellStyle},
+      {LanguageId::c_sharp, cStyle},
       {LanguageId::c_header, cStyle},
       {LanguageId::c_source, cStyle},
       {LanguageId::cpp_header, cStyle},
@@ -86,13 +100,15 @@ private:
       {LanguageId::css, cStyle},
       {LanguageId::git, shellStyle},
       {LanguageId::go, cStyle},
+      {LanguageId::haskell, {{"-- "}, {{"{-", "-}"}}}},
       {LanguageId::html, htmlStyle},
       {LanguageId::java, cStyle},
       {LanguageId::javascript, cStyle},
       {LanguageId::json, noCommentStyle},
       {LanguageId::make_file, shellStyle},
       {LanguageId::markdown, noCommentStyle},
-      {LanguageId::python, {{"#"}, {{"'''", "'''"}, {R"(""")", R"(""")"}}}}};
+      {LanguageId::python, {{"#"}, {{"'''", "'''"}, {R"(""")", R"(""")"}}}},
+      {LanguageId::zig, {{"//"}, {}}}};
 
   std::string getShebang(const fs::path &filePath) const;
 };

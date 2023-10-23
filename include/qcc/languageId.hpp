@@ -5,7 +5,9 @@
 #include <string_view>
 
 enum class LanguageId {
+  assembly,
   bourne_shell,
+  c_sharp,
   c_header,
   c_source,
   cpp_header,
@@ -14,6 +16,7 @@ enum class LanguageId {
   css,
   git,
   go,
+  haskell,
   html,
   java,
   javascript,
@@ -21,14 +24,19 @@ enum class LanguageId {
   make_file,
   markdown,
   python,
+  zig, // 20 languages
   unknown,
   total
 };
 
 constexpr std::string_view idToString(LanguageId id) {
   switch (id) {
+  case LanguageId::assembly:
+    return "Assembly";
   case LanguageId::bourne_shell:
     return "Bourne_Shell";
+  case LanguageId::c_sharp:
+    return "C#";
   case LanguageId::c_header:
     return "C_Header";
   case LanguageId::c_source:
@@ -45,6 +53,8 @@ constexpr std::string_view idToString(LanguageId id) {
     return "Git_File";
   case LanguageId::go:
     return "Go";
+  case LanguageId::haskell:
+    return "Haskell";
   case LanguageId::html:
     return "HTML";
   case LanguageId::java:
@@ -59,6 +69,8 @@ constexpr std::string_view idToString(LanguageId id) {
     return "Markdown";
   case LanguageId::python:
     return "Python";
+  case LanguageId::zig:
+    return "Zig";
   case LanguageId::unknown:
     return "Unknown";
   case LanguageId::total:
