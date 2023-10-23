@@ -45,6 +45,9 @@ LanguageData::getCommentInfo(LanguageId identifier) const {
 std::string LanguageData::getShebang(const fs::path &filePath) const {
   // get first line of the file
   auto fileHandle = std::ifstream(filePath);
+  // if file wasn't opened successfully, return
+  if (!fileHandle.is_open())
+    return "";
   std::string firstLine;
   std::getline(fileHandle, firstLine);
   // shebang files start with "#!", return if otherwise
