@@ -27,8 +27,8 @@ int Machine::run(int argc, char **argv) {
   // parse user input
   UserInput input = parse(argc, argv);
   // get all file paths recursively
-  auto filePaths = directoryIterator(input.targetDirectory, input.ignoreThem,
-                                     input.includeHidden);
+  auto filePaths = directoryIterator(input.targetDirectory,
+                                     input.ignorePatterns, input.includeHidden);
   // make FileInfo objects of all file paths
   std::vector<std::unique_ptr<FileInfo>> files;
   files.reserve(filePaths.size());
@@ -55,14 +55,14 @@ UserInput Machine::parse(int argc, char **argv) {
   cxxopts::Options options(
       "qcc", "quick-code-counter : Tool to count lines of code in a project");
   options.add_options()(
-      "a,all", "Do not ignore entries starting with .",
+      "a,all", "Do not ignore entries starting with '.'",
       cxxopts::value<bool>()->implicit_value("true")->default_value("false"))(
       "u,unknown", "Do not ignore files whose language couldn't be recognized",
       cxxopts::value<bool>()->implicit_value("true")->default_value("false"))(
       "p,path", "Pass path of target directory",
       cxxopts::value<fs::path>()->default_value("./"))(
-      "e,exclude",
-      "Pass comma-seperated names of file and directory names that should "
+      "i,ignore-patterns",
+      "Pass comma-seperated patterns of file and directories that should "
       "be "
       "ignored",
       cxxopts::value<std::vector<std::string>>()->default_value("{}"))(
@@ -80,9 +80,9 @@ UserInput Machine::parse(int argc, char **argv) {
   }
   bool ignoreHidden = result["all"].as<bool>();
   bool ignoreUnknown = result["unknown"].as<bool>();
-  std::vector<std::string> ignoreThem =
-      result["exclude"].as<std::vector<std::string>>();
   fs::path targetDirectory = result["path"].as<fs::path>();
+  std::vector<std::string> ignoreThem =
+      result["ignore-patterns"].as<std::vector<std::string>>();
   OutputFormat outFormat =
       stringToOutput(result["output-format"].as<std::string>());
 

@@ -1,6 +1,6 @@
 #include "directoryIterator.hpp"
+#include "gtest/gtest.h"
 
-#include <gtest/gtest.h>
 #include <algorithm>
 #include <filesystem>
 #include <string>
@@ -8,19 +8,25 @@
 
 class DirectoryIteratorTest : public ::testing::Test {
 protected:
-  std::string pathToTestsDir = TEST_DIR;
   std::vector<fs::path> _expectedAns;
   std::vector<fs::path> _calculatedAns;
   fs::path _targetPath;
   std::vector<std::string> _ignoreThem;
   bool _includeHidden;
 
-  void set(const fs::path &&targetPath,
-           const std::vector<std::string> &&ignoreThem,
-           const bool includeHidden) {
-    _targetPath = targetPath;
+  void setUserInput(const fs::path &&targetPath,
+                    const std::vector<std::string> &&ignoreThem,
+                    const bool includeHidden) {
+    _targetPath = fs::path(PROJECT_DIR) / "tests" / targetPath;
     _ignoreThem = ignoreThem;
     _includeHidden = includeHidden;
+  }
+
+  void setExpectedAns(std::vector<fs::path> &&expectedAns) {
+    for (auto &path : expectedAns)
+      path = fs::path(PROJECT_DIR) / "tests" / path;
+    std::sort(expectedAns.begin(), expectedAns.end());
+    _expectedAns = expectedAns;
   }
 
   void calculateAns() {
@@ -33,60 +39,71 @@ protected:
 };
 
 TEST_F(DirectoryIteratorTest, emptyDir) {
-  set(pathToTestsDir + "dirForTest/emptyDir", {}, true);
+  setUserInput("dirForTest/emptyDir", {}, true);
   calculateAns();
   EXPECT_EQ(_expectedAns, _calculatedAns);
 }
 
 TEST_F(DirectoryIteratorTest, invalidPath) {
-  set(pathToTestsDir + "dirForTest/doestExist", {}, true);
+  setUserInput("dirForTest/doestExist", {}, true);
   calculateAns();
   EXPECT_EQ(_expectedAns, _calculatedAns);
 }
 
 TEST_F(DirectoryIteratorTest, pathToFile) {
-  set(pathToTestsDir + "dirForTest/file1.cpp", {}, false);
+  setUserInput("dirForTest/file1.cpp", {}, false);
   calculateAns();
-  _expectedAns = {_targetPath};
+  setExpectedAns({_targetPath});
+  EXPECT_EQ(_expectedAns, _calculatedAns);
+}
+
+TEST_F(DirectoryIteratorTest, pathToIgnoredFile) {
+  setUserInput("dirForTest/file1.cpp", {"file1.cpp"}, false);
+  calculateAns();
+  setExpectedAns({});
   EXPECT_EQ(_expectedAns, _calculatedAns);
 }
 
 TEST_F(DirectoryIteratorTest, allFiles) {
-  set(pathToTestsDir + "dirForTest", {}, true);
+  setUserInput("dirForTest", {}, true);
   calculateAns();
-  _expectedAns = {pathToTestsDir + "dirForTest/file1.cpp",
-                  pathToTestsDir + "dirForTest/file2.cpp",
-                  pathToTestsDir + "dirForTest/.file3.cpp",
-                  pathToTestsDir + "dirForTest/dir1/file1.cpp",
-                  pathToTestsDir + "dirForTest/dir1/file2.cpp",
-                  pathToTestsDir + "dirForTest/dir1/.file3.cpp",
-                  pathToTestsDir + "dirForTest/.hiddenDir/file1.cpp",
-                  pathToTestsDir + "dirForTest/.hiddenDir/file2.cpp",
-                  pathToTestsDir + "dirForTest/.hiddenDir/.file3.cpp"};
-  std::sort(_expectedAns.begin(), _expectedAns.end());
+  setExpectedAns(
+      {"dirForTest/file1.cpp", "dirForTest/file2.cpp", "dirForTest/.file3.cpp",
+       "dirForTest/dir1/file1.cpp", "dirForTest/dir1/file2.cpp",
+       "dirForTest/dir1/.file3.cpp", "dirForTest/.hiddenDir/file1.cpp",
+       "dirForTest/.hiddenDir/file2.cpp", "dirForTest/.hiddenDir/.file3.cpp"});
   EXPECT_EQ(_expectedAns, _calculatedAns);
 }
 
 TEST_F(DirectoryIteratorTest, ignoreHiddenFiles) {
-  set(pathToTestsDir + "dirForTest", {}, false);
+  setUserInput("dirForTest", {}, false);
   calculateAns();
-  _expectedAns = {
-      pathToTestsDir + "dirForTest/file1.cpp",
-      pathToTestsDir + "dirForTest/file2.cpp",
-      pathToTestsDir + "dirForTest/dir1/file1.cpp",
-      pathToTestsDir + "dirForTest/dir1/file2.cpp",
-  };
-  std::sort(_expectedAns.begin(), _expectedAns.end());
+  setExpectedAns({
+      "dirForTest/file1.cpp",
+      "dirForTest/file2.cpp",
+      "dirForTest/dir1/file1.cpp",
+      "dirForTest/dir1/file2.cpp",
+  });
   EXPECT_EQ(_expectedAns, _calculatedAns);
 }
 
 TEST_F(DirectoryIteratorTest, ignoreSpecificFiles) {
-  set(pathToTestsDir + "dirForTest", {"file1.cpp", "dir1"}, true);
+  setUserInput("dirForTest", {"file1.cpp", "dir1"}, true);
   calculateAns();
-  _expectedAns = {pathToTestsDir + "dirForTest/file2.cpp",
-                  pathToTestsDir + "dirForTest/.file3.cpp",
-                  pathToTestsDir + "dirForTest/.hiddenDir/file2.cpp",
-                  pathToTestsDir + "dirForTest/.hiddenDir/.file3.cpp"};
-  std::sort(_expectedAns.begin(), _expectedAns.end());
+  setExpectedAns({"dirForTest/file2.cpp", "dirForTest/.file3.cpp",
+                  "dirForTest/.hiddenDir/file2.cpp",
+                  "dirForTest/.hiddenDir/.file3.cpp"});
+  EXPECT_EQ(_expectedAns, _calculatedAns);
+}
+
+TEST_F(DirectoryIteratorTest, ignorePatterns) {
+  setUserInput("dirForTest", {"*.cpp"}, false);
+  calculateAns();
+  setExpectedAns({});
+  EXPECT_EQ(_expectedAns, _calculatedAns);
+
+  setUserInput("dirForTest", {"*1.c*"}, false);
+  calculateAns();
+  setExpectedAns({"dirForTest/file2.cpp", "dirForTest/dir1/file2.cpp"});
   EXPECT_EQ(_expectedAns, _calculatedAns);
 }

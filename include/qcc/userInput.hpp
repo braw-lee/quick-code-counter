@@ -13,7 +13,7 @@ struct UserInput {
   bool includeHidden;
   bool includeUnknown;
   fs::path targetDirectory;
-  std::vector<std::string> ignoreThem;
+  std::vector<std::string> ignorePatterns;
   OutputFormat outputFormat;
 };
 
